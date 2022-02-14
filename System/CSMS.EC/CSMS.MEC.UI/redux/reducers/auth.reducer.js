@@ -1,0 +1,89 @@
+import { accountConstants } from '../../commons/constants';
+import { combineReducers } from 'redux';
+
+const authData = (state = {}, action) => {
+  switch (action.type) {
+    case accountConstants.AUTH_USER_SUCCESS:
+      return {
+        token: action.payload,
+        isLoggedIn: true
+      }
+
+    case accountConstants.AUTH_USER_FAILURE:
+      return {
+        token: null,
+        isLoggedIn: false
+      }
+    default:
+      return state;
+  }
+}
+
+const loginUser = (state = {}, action) => {
+  switch (action.type) {
+    case accountConstants.LOGIN_LOADING:
+      return {
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        errors: null
+      }
+
+    case accountConstants.LOGIN_SUCCESS:
+      return {
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        errors: null,
+      }
+
+    case accountConstants.LOGIN_FAILURE:
+      return {
+        isLoading: false,
+        isError: true,
+        isSuccess: false,
+        errors: action.payload
+      }
+
+    default:
+      return state
+  }
+}
+
+const createUser = (state = {}, action) => {
+  switch (action.type) {
+
+    case accountConstants.CREATE_USER_LOADING:
+      return {
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        errors: null,
+      }
+
+    case accountConstants.CREATE_USER_SUCCESS:
+      return {
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        errors: null
+      }
+
+    case accountConstants.CREATE_USER_FAILURE:
+      return {
+        isLoading: false,
+        isError: true,
+        isSuccess: false,
+        errors: action.payload
+      }
+
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  createUser,
+  loginUser,
+  authData
+});

@@ -1,0 +1,15 @@
+<div class="input-group w-100">
+  <input [value]="formatTime(selectedTime)" disabled class="form-control" [ngClass]="{'disabled-white': !disabled}"
+    [class.border-required]="!dataValid" [placeholder]="placeholder" (change)="this.selectedTime = $event" />
+
+  <ng-template #popTemplate>
+    <ngb-timepicker [(ngModel)]="selectedTime" [meridian]="meridian" (ngModelChange)="handleChangeInput()">
+    </ngb-timepicker>
+    <button *ngIf="showClearButton" class="btn btn-sm float-right" (click)="onClear()">Clear</button>
+  </ng-template>
+
+  <button class="btn btn-outline-secondary date-picker-icon" [class.disabled]="disabled" [ngbPopover]="popTemplate"
+    [autoClose]="'outside'" placement="bottom" [class.border-required]="!dataValid">
+    <i class="fa fa-clock-o" [class.icon-required]="!dataValid"></i>
+  </button>
+</div>

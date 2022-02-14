@@ -1,0 +1,55 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">+ Import Material</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div *ngIf="materials" class="row pl-3">
+          <div *ngFor="let mat of materials; let i = index" class="col-12 pl-1">
+            <div class="row">
+              <div class="col-2 align-self-center">{{mat.materialName}}</div>
+              <div class="col-4">
+                <app-dropdown [listData]="mat.dropDownData" [selectedItemId]="mat.defaultPartnerId"
+                  (selectedItemEmit)="onSelectPartner($event.key, i)">
+                </app-dropdown>
+              </div>
+              <div class="col-2 align-self-center text-center">
+                {{formatCurrency(importList[i].price)}}
+              </div>
+              <div class="col-2 form-group d-inline-flex">
+                <button (click)="updateQuantity(-1, i)" class="btn btn-outline-primary btn-fab btn-icon btn-round m-0">
+                  -
+                </button>
+                <input type="text" class="form-control text-center mx-2 my-0" [(ngModel)]="importList[i].quantityUnit">
+                <button (click)="updateQuantity(1, i)" class="btn btn-outline-primary btn-fab btn-icon btn-round m-0">
+                  +
+                </button>
+              </div>
+              <div class="col-2 align-self-center text-primary text-right">
+                {{formatCurrency(importList[i].price * importList[i].quantityUnit)}}
+              </div>
+            </div>
+          </div>
+          <span *ngIf="error" class="text-danger pt-3">{{errorMessage}}</span>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <ui-switch [(ngModel)]="importList.havePaid" color="#6bd098" defaultBgColor="#ef8157"
+              class=" d-inline-block pt-3 mb-0" ngbTooltip="{{importList.havePaid ? 'Paid' : 'Unpaid'}}">
+            </ui-switch>
+            <span class="pl-3 mt-4 position-absolute">{{importList.havePaid ? 'Paid' : 'Unpaid'}}</span>
+            <button class="btn btn-primary float-right" (click)="onImport()">
+              <span *ngIf="!loading">Import</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+            <button class="btn btn-success float-right" (click)="onSetDefault()">Set Default</button>
+            <span class="pr-3 mt-3 float-right">
+              <h4 class="text-danger m-0"><small class="text-muted">Total: </small>{{getTotal()}}</h4>
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-md-4 px-1">
+      <div class="form-group">
+        <label>Category</label>
+        <app-dropdown [listData]="listCategory" [selectedItemId]="categorySelected"
+          (selectedItemEmit)="categorySelected = $event.key"></app-dropdown>
+      </div>
+    </div>
+    <div class="col-md-8 text-right pr-0">
+      <br>
+      <button class="btn btn-primary mt-1" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</nav>
+
+
+<div class="row px-3">
+  <div class="col-md-5 px-1">
+    <div
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      #studentsList="cdkDropList"
+      [cdkDropListData]="listAvailableProduct"
+      [cdkDropListConnectedTo]="[students2List]"
+      class="row store-product-list"
+      (cdkDropListDropped)="drop($event)" ngbTooltip="Drag & Drop Item">
+      <h5 class="text-center mb-2 w-100">Products</h5>
+      <app-loading-spinner *ngIf="!listAvailableProduct && !errorMessage" class="w-100"></app-loading-spinner>
+      <ng-template *ngIf="listAvailableProduct" ngFor let-item [ngForOf]="listAvailableProduct">
+        <div cdkDrag *ngIf="categorySelected === 0 || item.categoryId === categorySelected"
+          class="px-1">
+          <div class="card shadow rounded border border-info center-row w-p-100 m-1">
+            <img class="card-img-top cursor-pointer" [src]="getProductPhotoUrl(item.avatarId)" alt="Product avatar" />
+            <span class="text-center">{{item.name}}</span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  
+  <div class="col-md-7 px-1">
+    <div
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      #students2List="cdkDropList"
+      [cdkDropListData]="listStoreProduct"
+      [cdkDropListConnectedTo]="[studentsList]"
+      class="row store-product-list"
+      (cdkDropListDropped)="drop($event)" ngbTooltip="Drag & Drop Item">
+      <h5 class="text-center mb-2 w-100">{{branchNameSelected}}</h5>
+      <app-loading-spinner *ngIf="!listStoreProduct && !errorMessage" class="w-100"></app-loading-spinner>
+      <ng-template *ngIf="listStoreProduct" ngFor let-item [ngForOf]="listStoreProduct">
+        <div cdkDrag *ngIf="categorySelected === 0 || item.categoryId === categorySelected"
+          class="px-1">
+          <div class="card shadow rounded border border-info center-row w-p-100 m-1">
+            <img class="card-img-top cursor-pointer" [src]="getProductPhotoUrl(item.avatarId)" alt="Product avatar" />
+            <span class="text-center">{{item.name}}</span>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <span *ngIf="!listAvailableProduct && errorMessage" class="col-12 text-center text-danger">{{errorMessage}}</span>
+</div>
+

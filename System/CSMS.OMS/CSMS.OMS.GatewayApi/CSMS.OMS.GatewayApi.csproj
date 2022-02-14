@@ -1,0 +1,133 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\10-es2015.436bc59e3bd67d425d0b.js" />
+    <None Include="wwwroot\10-es5.6e8f7bca42e0de04c83b.js" />
+    <None Include="wwwroot\11-es2015.4793258f79ce31ffc616.js" />
+    <None Include="wwwroot\11-es5.94d9abc0f2c7639142a6.js" />
+    <None Include="wwwroot\12-es2015.18e607b3ff30ab057ce3.js" />
+    <None Include="wwwroot\12-es5.5cb247cdd1502cf3289e.js" />
+    <None Include="wwwroot\13-es2015.2d7da20c665d892032c1.js" />
+    <None Include="wwwroot\13-es5.d5f3ec4d1fe177112a83.js" />
+    <None Include="wwwroot\5-es2015.34e4943208ece2d071b5.js" />
+    <None Include="wwwroot\5-es5.82ec4a8b44b2164d5843.js" />
+    <None Include="wwwroot\6-es2015.63d8630a721be86b64ea.js" />
+    <None Include="wwwroot\6-es5.76a99ee9b0384ddbfaa0.js" />
+    <None Include="wwwroot\7-es2015.e8cae493d5bb4e2fd4e4.js" />
+    <None Include="wwwroot\7-es5.363e6af596a7a72db0a7.js" />
+    <None Include="wwwroot\8-es2015.5ff05643affc1f2e6565.js" />
+    <None Include="wwwroot\8-es5.e056616f9c468a57acdc.js" />
+    <None Include="wwwroot\9-es2015.75b0b1e9af6eeb75cf92.js" />
+    <None Include="wwwroot\9-es5.c2f2374c5f8a41b1e2c3.js" />
+    <None Include="wwwroot\assets\css\demo.css" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.eot" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.ttf" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.woff" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\img\angular.png" />
+    <None Include="wwwroot\assets\img\angular2-logo-white.png" />
+    <None Include="wwwroot\assets\img\angular2-logo.png" />
+    <None Include="wwwroot\assets\img\apple-icon.png" />
+    <None Include="wwwroot\assets\img\backgrounds\bg-01.png" />
+    <None Include="wwwroot\assets\img\backgrounds\bg-02.png" />
+    <None Include="wwwroot\assets\img\backgrounds\bg-03.png" />
+    <None Include="wwwroot\assets\img\backgrounds\bg-04.png" />
+    <None Include="wwwroot\assets\img\backgrounds\bg-05.png" />
+    <None Include="wwwroot\assets\img\bg5.jpg" />
+    <None Include="wwwroot\assets\img\damir-bosnjak.jpg" />
+    <None Include="wwwroot\assets\img\default-avatar.png" />
+    <None Include="wwwroot\assets\img\faces\ayo-ogunseinde-1.jpg" />
+    <None Include="wwwroot\assets\img\faces\ayo-ogunseinde-2.jpg" />
+    <None Include="wwwroot\assets\img\faces\clem-onojeghuo-1.jpg" />
+    <None Include="wwwroot\assets\img\faces\clem-onojeghuo-2.jpg" />
+    <None Include="wwwroot\assets\img\faces\clem-onojeghuo-3.jpg" />
+    <None Include="wwwroot\assets\img\faces\clem-onojeghuo-4.jpg" />
+    <None Include="wwwroot\assets\img\faces\erik-lucatero-1.jpg" />
+    <None Include="wwwroot\assets\img\faces\erik-lucatero-2.jpg" />
+    <None Include="wwwroot\assets\img\faces\joe-gardner-1.jpg" />
+    <None Include="wwwroot\assets\img\faces\joe-gardner-2.jpg" />
+    <None Include="wwwroot\assets\img\faces\kaci-baum-1.jpg" />
+    <None Include="wwwroot\assets\img\faces\kaci-baum-2.jpg" />
+    <None Include="wwwroot\assets\img\favicon.png" />
+    <None Include="wwwroot\assets\img\header.jpg" />
+    <None Include="wwwroot\assets\img\jan-sendereks.jpg" />
+    <None Include="wwwroot\assets\img\logo-small.png" />
+    <None Include="wwwroot\assets\img\mike.jpg" />
+    <None Include="wwwroot\assets\scss\paper-dashboard.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_date-picker.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_fixed-plugin.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_plugin-ngx-toastr.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_sidebar-and-main-panel.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\angular\_spinner.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-chart.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-map.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-mat.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-plain.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-stats.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-user.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\core\avatars\_avatar-group.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\core\avatars\_avatar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\core\paginations\_pagination.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_transparency.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-animate-bootstrap-notify.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-perfect-scrollbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_alerts.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_animated-buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_checkboxes-radio.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_fixed-plugin.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_footers.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_images.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_misc.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_mixins.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_navbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_nucleo-outline.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_responsive.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_sidebar-and-main-panel.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_tables.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_typography.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_variables.scss" />
+    <None Include="wwwroot\common-es2015.ac74db144a698e9f451d.js" />
+    <None Include="wwwroot\common-es5.e3a45d7e6c81cf48a871.js" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\main-es2015.82c5c5944ac17100627f.js" />
+    <None Include="wwwroot\main-es5.5c2f17bb2d17da38a7e7.js" />
+    <None Include="wwwroot\nucleo-icons.48ac036da7c792326626.ttf" />
+    <None Include="wwwroot\nucleo-icons.5c78b4cf03771fd22873.woff2" />
+    <None Include="wwwroot\nucleo-icons.6836b93bf1af0b571928.woff" />
+    <None Include="wwwroot\nucleo-icons.f32ed5ad3d76067b8e43.eot" />
+    <None Include="wwwroot\polyfills-es2015.50b8c569713ecec90527.js" />
+    <None Include="wwwroot\polyfills-es5.2d5210b14ff15b8d5a63.js" />
+    <None Include="wwwroot\runtime-es2015.fb014bcf793d5c35d09b.js" />
+    <None Include="wwwroot\runtime-es5.6c73c695643760d65fb3.js" />
+    <None Include="wwwroot\styles.fbf4ccc5bf5c8f461ec1.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Ocelot" Version="13.8.0" />
+  </ItemGroup>
+
+</Project>

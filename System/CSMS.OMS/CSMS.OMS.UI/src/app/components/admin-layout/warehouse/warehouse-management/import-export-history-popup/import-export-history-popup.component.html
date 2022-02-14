@@ -1,0 +1,32 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Import Export Histories</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <app-loading-spinner *ngIf="!histories"></app-loading-spinner>
+      <section *ngIf="histories">
+        <table class="table">
+          <thead class="text-primary">
+            <tr>
+              <th></th>
+              <th> Time </th>
+              <th> Event </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of histories">
+              <td>
+                <i class="fa ng-star-inserted"
+                  [ngClass]="item.isImport ? 'fa-arrow-up text-success' : 'fa-arrow-down text-danger'"></i>
+              </td>
+              <td>{{formatTime(item)}}</td>
+              <td>{{getTitle(item)}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>

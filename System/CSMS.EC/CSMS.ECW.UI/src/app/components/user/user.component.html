@@ -1,0 +1,48 @@
+<div style="background-color: #eee;">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 all-white">
+                <div class="info-of-user">
+                    Account of Ngô Công An
+                </div>
+                <ul class="list-info">
+                    <li class="li-info-1" routerLink='/user/profile' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Account information</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/address-book' style="cursor: pointer; outline: none;">
+                    <label style="cursor: pointer;">Address book</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/favorite-product' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Favorite product</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/buy-later-product' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Buy later product</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/order-management' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Order management</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/comment' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Comment</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-info-1" routerLink='/user/change-password' style="cursor: pointer; outline: none;">
+                        <label style="cursor: pointer;">Change password</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                </ul>
+            </div>
+            <div style="width: 83%;">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: -3%;">
+        <app-footer></app-footer>
+    </div>
+</div>

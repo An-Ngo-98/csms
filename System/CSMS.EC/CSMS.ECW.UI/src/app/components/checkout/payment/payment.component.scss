@@ -1,0 +1,32 @@
+.container {
+    .row {
+        .span-billing-information {
+            margin-top: 3%;
+            font-size: 20px;
+            margin-left: 31%;
+        }
+        .span-process-payment {
+            border: 1px solid #ffe9e9;
+            background-color: #039be5;
+            margin-left: 37%;
+            font-size: 20px;
+            cursor: pointer;
+            color: #fff;
+            padding: 5px;
+        }
+        .cash-payment {
+            text-align: center;
+            font-size: 20px;
+            margin-left: 32%;
+            margin-top: 10%;
+            margin-bottom: 10%;
+        }
+    }
+    .row-1 {
+        margin-top: 2%;
+        mat-form-field {
+            width: 50%;
+            margin-left: 25%;
+        }
+    }
+}

@@ -1,0 +1,34 @@
+﻿Step 1: Build Angular project
+	- cd to CSMS.DMS.UI folder in Terminal
+	- ng build --prod --output-path=../CSMS.DMS.API/wwwroot
+	- del ../CSMS.DMS.API/wwwroot/3rdpartylicenses.txt
+
+Step 2: Create Database in Docker for CSMS.DMS
+	*If we don't have SQL Server Container:
+		- cd to CSMS.DMS.DB folder in Terminal
+		- docker-compose up -d
+		- npm install -g sql-cli
+	* Import DMS SQL by *.sql file
+		- mssql -u sa -p Password123@
+		- .run dms.sql
+
+Step 3: Deploy API to Docker
+	- cd to CSMS.DMS.API folder in Terminal
+	- docker build -t "csms.dms" -f "Dockerfile" .
+	- docker run -p 50001:80 csms.dms
+
+
+Bonus:
+	- Stop container: docker stop cc3f2ff51cab
+	- Remove container: docker rm cc3f2ff51cab
+	- Remove image: docker rmi cc3f2ff51cab
+	- Get all container: docker ps -a
+	- Get running container: docker ps
+	- Get all images: docker images
+	- Push images to docker hub:	
+		docker tag csms.dms thuydx9598/csms.dms		
+			---> docker push thuydx9598/csms.dms
+		docker tag microsoft/mssql:lastest:2017 thuydx9598/mssql
+			---> docker push thuydx9598/mssql
+	- Clone and run image from Docker hub: docker run --rm -p 8787:8787 thuydx9598/csms.dms
+	- Clone image form Docker hub: docker pull thuydx9598/csms.dms.api.docker

@@ -1,0 +1,73 @@
+<div class="container" style="height: 80%;">
+    <div class="row">
+        <form name="createUserForm" [formGroup]="createUserForm">
+            <p class="title-signup">SIGN UP</p>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>First Name *</mat-label>
+                <input matInput formControlName="firstName">
+                <mat-error *ngIf="signUpFormErrors.firstName.required">
+                    First name is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Middle Name *</mat-label>
+                <input matInput formControlName="middleName">
+                <mat-error *ngIf="signUpFormErrors.middleName.required">
+                    Middle name is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Last Name *</mat-label>
+                <input matInput formControlName="lastName">
+                <mat-error *ngIf="signUpFormErrors.lastName.required">
+                    Last name is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Phonenumber *</mat-label>
+                <input matInput formControlName="phoneNumber">
+                <mat-error *ngIf="signUpFormErrors.phoneNumber.required">
+                    Phonenumber is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Email *</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="signUpFormErrors.email.required">
+                    Email is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Password *</mat-label>
+                <input matInput formControlName="password">
+                <mat-error *ngIf="signUpFormErrors.password.required">
+                    Password is required
+                </mat-error>
+            </mat-form-field>
+            <p class="title-sex">Gennder</p>
+            <mat-radio-group class="radio-sex" aria-label="Select an option" formControlName="gender">
+                <mat-radio-button value="1">Male</mat-radio-button>
+                <mat-radio-button class="radio-sex-2" value="2">Female</mat-radio-button>
+            </mat-radio-group>
+            <p class="title-birthday">Birth day</p>
+            <mat-form-field style="font-size: 12px; width: 18%;" class="choose-date" appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="row">
+        <div class="div-button-signup">
+            <button class="button-signup" (click)="signUp()" mat-flat-button [disabled]="!createUserForm.dirty || createUserForm.invalid">
+                <mat-spinner style="margin:0 auto;" [strokeWidth]=3 [diameter]=30 *ngIf="(loading$ | async)?.loginEntity"></mat-spinner>
+                <span *ngIf="!(loading$ | async)?.loginEntity">Sign up</span>
+            </button>
+        </div>
+        <div class="title-login-if-is-user">
+            <span style="white-space: nowrap;">Already a member of Panda Store ? </span>
+            <span (click)="openModalLogin()">Login</span>
+        </div>
+    </div>
+</div>

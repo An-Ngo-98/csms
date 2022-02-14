@@ -1,0 +1,68 @@
+<div style="background-color: #eee;">
+    <div>
+        <app-navbar [loading]="(loadingProduct$ | async).loadingEntities"></app-navbar>
+    </div>
+    <div class="container group-food-one all-white">
+        <div class="row row-food-one">
+            <div class="col-md-1">
+                <img src="../../../assets/img/favicon.ico">
+            </div>
+            <div class="col-md-11 col-food-search">
+                <a class="food-day">Door-to-door delivery</a>
+                <a style="cursor: pointer;" class="food-item" (click)="getProductFromCategory(0)">Deal today</a>
+                <a style="cursor: pointer;" class="food-item" *ngFor="let category of categories && categories.items && categories.items.slice(0,4)" (click)="getProductFromCategory(category.id)">{{category.name}}</a>
+            </div>
+        </div>
+        <div *ngIf="productOfCategory">
+            <app-show-product-little [products]="productOfCategory"></app-show-product-little>
+        </div>
+    </div>
+    <div class="container group-food-one all-white">
+        <div class="row row-food-one">
+            <div class="col-md-1">
+                <img src="../../../assets/img/favicon.ico">
+            </div>
+            <div class="col-md-11 col-food-search">
+                <a class="food-day">Door-to-door delivery</a>
+                <a style="cursor: pointer;" class="food-item" (click)="getProductFromCategory2(0)">Most order</a>
+                <a *ngFor="let category of categories && categories.items.slice(3,7)" style="cursor: pointer;" (click)="getProductFromCategory2(category.id)" class="food-item">{{category.name}}</a>
+            </div>
+        </div>
+        <div *ngIf="productOfCategory2">
+            <app-show-product-little-two [products]="productOfCategory2"></app-show-product-little-two>
+        </div>
+    </div>
+    <div class="container" style="margin-bottom: -2%;">
+        <div class="row">
+            <div class="col-md-2 all-white">
+                <div class="item-food-3">
+                    Discovery
+                </div>
+                <ul class="food-3">
+                    <li class="li-food-3" (click)="getProductFromCategory3(0)" style="cursor: pointer;">
+                        <label style="cursor: pointer;">All</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3" *ngFor="let category of categories && categories.items" (click)="getProductFromCategory3(category.id)" style="cursor: pointer;">
+                        <label style="cursor: pointer;">{{category.name}}</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3">
+                        <label>Promotion</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3">
+                        <label>Comment</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10" *ngIf="productOfCategory3">
+                <app-show-product-more [products]="productOfCategory3"></app-show-product-more>
+            </div>
+        </div>
+    </div>
+    <div>
+        <app-footer></app-footer>
+    </div>
+</div>

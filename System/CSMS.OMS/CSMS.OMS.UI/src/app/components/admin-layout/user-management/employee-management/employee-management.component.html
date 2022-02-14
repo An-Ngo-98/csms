@@ -1,0 +1,140 @@
+<nav class="breadcrumb pr-0">
+
+  <div class="row w-100 pl-2">
+    <div class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onClickAddEmployee()">+ Add</button>
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onExport()">Export</button>
+    </div>
+  </div>
+
+  <div class="row w-100 pl-2">
+    <div class="col-md-3 px-1">
+      <div class="form-group">
+        <label>Search for </label>
+        <input class="form-control" placeholder="Id, Name, Username..." type="text" [(ngModel)]="searchFor"
+          title="use &quot;,&quot; or &quot;;&quot; for multi result" (keyup.enter)="getListEmployee()">
+      </div>
+    </div>
+    <div class="col-md-3 px-1">
+      <div class="form-group">
+        <label>Search Type</label>
+        <app-dropdown [listData]="listSearchBy" [selectedItemId]="searchBySelected"
+          (selectedItemEmit)="searchBySelected = $event.key"></app-dropdown>
+      </div>
+    </div>
+    <div class="col-md-3 px-1">
+      <label>Start date</label>
+      <app-date-picker [setDate]="startDate" [maxDate]="endDate" (selectedDateEmit)="startDate = $event">
+      </app-date-picker>
+    </div>
+    <div class="col-md-3 px-1">
+      <label>End date</label>
+      <app-date-picker [setDate]="endDate" [minDate]="startDate" (selectedDateEmit)="endDate = $event">
+      </app-date-picker>
+    </div>
+  </div>
+
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-6">
+      <div class="row">
+        <div *ngIf="detailBranchId <= 0" class="col-md-6 px-1">
+          <div class="form-group">
+            <label>Branch</label>
+            <app-dropdown [listData]="listBranch" [selectedItemId]="branchSelected"
+              (selectedItemEmit)="branchSelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+        <div class="col-md-6 px-1">
+          <div class="form-group">
+            <label>Status</label>
+            <app-dropdown [listData]="listEmployeeStatus" [selectedItemId]="statusSelected"
+              (selectedItemEmit)="statusSelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-6 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getListEmployee()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!listEmployee"></app-loading-spinner>
+
+    <div *ngIf="listEmployee" class="fixed-wrapper employee-management">
+      <div class="fixed-scroller">
+        <table class="fixed-table">
+          <thead>
+            <tr>
+              <th class="fixed-sticky-col col-checkbox text-center">
+                <app-checkbox [checked]="isAppearedCheckAll" [disabled]="listEmployee?.totalCount == 0"
+                  (checkedCallback)="onClickCheckedAllItem($event)"></app-checkbox>
+              </th>
+              <th class="fixed-sticky-col text-center col-id">ID</th>
+              <th class="fixed-sticky-col col-name">Employee name</th>
+              <th *ngIf="detailBranchId <= 0">Branch</th>
+              <th>Salary</th>
+              <th>Citizen ID</th>
+              <th>Birthday</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Gender</th>
+              <th>Address</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let emp of listEmployee?.items; let i = index;">
+              <td class="fixed-sticky-col text-center-all col-checkbox">
+                <app-checkbox [checked]="emp.selected" (checkedCallback)="onClickCheckedItem($event, i)"></app-checkbox>
+              </td>
+              <td class="fixed-sticky-col text-center-all col-id"> {{emp.employeeCode}} </td>
+              <td class="fixed-sticky-col col-name">
+                <div class="media align-items-center">
+                  <span class="avatar avatar-md mb-0 rounded-circle cursor-pointer">
+                    <img alt="Image placeholder" src="{{avatarUrl.replace('{0}',emp.employeeId)}}">
+                  </span>
+                  <div class="media-body ml-2 d-lg-block">
+                    <span class="f-s-md cursor-pointer" (click)="onClickViewUserProfile(emp.employeeId)">
+                      {{emp.fullName}}
+                    </span>
+                    <div class="mb-0 role-title">{{emp.role}}</div>
+                  </div>
+                </div>
+              </td>
+              <td *ngIf="detailBranchId <= 0"> {{getBranchByBranchId(emp.branchId)}} </td>
+              <td> {{formatCurrency(emp.salary)}} </td>
+              <td> {{emp.citizenId}} </td>
+              <td> {{parseDateToString(emp.birthday)}} </td>
+              <td> {{emp.username}} </td>
+              <td> {{emp.email}} </td>
+              <td> {{emp.phoneNumber}} </td>
+              <td> {{emp.gender}} </td>
+              <td> {{emp.address}} </td>
+              <td> {{emp.status}} </td>
+              <td class="text-right">
+                <app-delete-confirm *ngIf="emp.role !== 'Admin'" (executeDelete)="deleteEmployee(emp.employeeId)"
+                  [message]="Message.EmployeeManagement.DELETE_EMPLOYEE.replace('{0}', emp.fullName)">
+                </app-delete-confirm>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="loading && listEmployee" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listEmployee" [totalCount]="listEmployee?.totalCount" [currentPageIndex]="page"
+      [pageSize]="pageSize" (onPageChangeEvent)="getListEmployee($event, pageSize)"
+      (onPageSizeChangeEvent)="getListEmployee(1, $event)"></app-pagination>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<!-- <div style="background-color: #eee;">
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+  <div>
+    <div class="container" *ngIf="carts.length < 1">
+      <div class="row">
+        <span>{{cartsLocalStorage.length}}</span>
+        <p style="font-size: 20px; font-weight: 500;">GIỎ HÀNG ( {{carts.length}} sản phẩm)</p>
+        <div class="col-md-12" style="background-color: #fff; text-align: center;">
+          <div>
+            <img src="/assets/img/bg-04.png" style="width: 30%;">
+            <p class="havent-product-2">Không có sản phẩm nào trong giỏ hàng của bạn</p>
+            <div routerLink='/'>
+              <a class="havent-product">Tiếp tục mua sắm</a>
+            </div>
+            <div style="margin-top: 5%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-bottom: 29%;" *ngIf="carts.length >= 1">
+      <p style="font-size: 20px; font-weight: 500; margin-bottom: 1%;">GIỎ HÀNG ({{carts.length}} sản phẩm)</p>
+      <div class="isHaveProduct">
+        <div class="left">
+          <div class="row" *ngFor="let cart of carts">
+            <div class="col-md-2">
+              <img class="img-left" src="{{getImg(cart.avatarId)}}">
+            </div>
+            <div class="col-md-4 left-1">
+              <p>{{cart.name}} - {{cart.description}}</p>
+            </div>
+            <div class="col-md-2 left-2">
+              <mat-icon class="left-2-1" (click)="deleteProductFromCart(cart.id)">delete</mat-icon>
+              <mat-icon class="left-2-2" (click)="addBuyLater(cart)">update</mat-icon>
+            </div>
+            <div class="col-md-2 left-3">
+              <form action=""  name="cartForm" [formGroup]="cartForm">
+                <input class="input-count-order" min="1" max="50" ng-model="item.Quantity" type="number" [value]="cart.count" name="Quantity" 
+                formControlName="count" (click)="updateCountProduct(cart)"/>
+              </form>
+            </div>
+            <div class="col-md-2 left-4">
+              <p>
+                {{cart.price}} VND
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <p class="location-1">Location</p>
+          <p class="location-2">{{addressActive.ward}} - {{addressActive.district}} - {{addressActive.province}} - {{addressActive.country}}</p>
+          <p class="order-sum">Order Summary</p>
+          <div class="right-1">
+            <p class="right-1-1">Subtotal ({{carts.length}} items)</p>
+            <p class="right-1-2">{{totalPriceProduct}} VND</p>
+          </div>
+          <div class="right-2">
+            <p class="right-2-1">Shipping Fee</p>
+            <p class="right-2-2">12700 VND</p>
+          </div>
+          <div class="right-3">
+            <input class="right-3-1" placeholder="Enter Voucher Code">
+            <span class="right-3-2">APPLY</span>
+          </div>
+          <div class="right-4">
+            <p class="right-4-1">Total</p>
+            <p class="right-4-2">{{totalPriceCart}} VND</p>
+          </div>
+          <div class="right-5">
+            <span class="right-5-1">CONFIRM CART</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div>
+    <app-footer></app-footer>
+  </div>
+</div> -->
+
+
+<!-- Cart Local Storage -->
+<div style="background-color: #eee;">
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+  <div>
+    <div class="container" *ngIf="cartsLocalStorage.length < 1" style="margin-bottom: -2%;">
+      <div class="row">
+        <p style="font-size: 20px; font-weight: 500;">CART ( {{cartsLocalStorage && cartsLocalStorage.length}} product)</p>
+        <div class="col-md-12" style="background-color: #fff; text-align: center;">
+          <div>
+            <img src="/assets/img/bg-04.png" style="width: 30%;">
+            <p class="havent-product-2">You have no items in your shopping cart</p>
+            <!-- <div routerLink='/'>
+              <a class="havent-product">Tiếp tục mua sắm</a>
+            </div> -->
+            <div class="div-button-login" routerLink='/'>
+              <button class="button-login-1" (click)="close()">Continue shopping</button>
+            </div>
+            <div style="margin-top: 5%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-bottom: 21%;" *ngIf="cartsLocalStorage.length >= 1">
+      <p style="font-size: 20px; font-weight: 500; margin-bottom: 1%;">GIỎ HÀNG ({{cartsLocalStorage && cartsLocalStorage.length}} sản phẩm)</p>
+      <div class="isHaveProduct">
+        <div class="left">
+          <div class="row" *ngFor="let cart of cartsLocalStorage">
+            <div class="col-md-2">
+              <img class="img-left" src="{{getImg(cart.avatarId)}}">
+            </div>
+            <div class="col-md-4 left-1">
+              <p>{{cart.name}} - {{cart.description}}</p>
+            </div>
+            <div class="col-md-2 left-2">
+              <mat-icon style="cursor: pointer;" class="left-2-1" (click)="deleteCartLocalStorage(cart.id)">delete</mat-icon>
+              <mat-icon style="cursor: pointer;" class="left-2-2" (click)="addBuyLater(cart)">update</mat-icon>
+            </div>
+            <div class="col-md-2 left-3">
+              <form action=""  name="cartForm" [formGroup]="cartForm">
+                <input class="input-count-order" min="1" max="50" ng-model="item.Quantity" type="number" [value]="cart.count" name="Quantity" 
+                formControlName="count" (click)="updateCountProductLocalStorage(cart)"/>
+              </form>
+            </div>
+            <div class="col-md-2 left-4">
+              <p>
+                {{cart.price}} VND
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <!-- <p class="location-1">Location</p>
+          <p class="location-2">{{addressActive && addressActive.ward}} - {{addressActive && addressActive.district}} - {{addressActive && addressActive.province}} - {{addressActive && addressActive.country}}</p> -->
+          <p class="order-sum">Order Summary</p>
+          <div class="right-1">
+            <p class="right-1-1">Subtotal ({{cartsLocalStorage && cartsLocalStorage.length}} items)</p>
+            <p class="right-1-2">{{totalPriceProductLocalStorage}} VND</p>
+          </div>
+          <div class="right-2">
+            <p class="right-2-1">Shipping Fee</p>
+            <p class="right-2-2">15000 VND</p>
+          </div>
+          <div class="right-3">
+            <input style="cursor: pointer;" class="right-3-1" (click)="openModalChooseVoucher()" [value]="chooseVoucher">
+            <span class="right-3-2">Voucher</span>
+          </div>
+          <div class="right-4">
+            <p class="right-4-1">Total</p>
+            <p class="right-4-2">{{totalPriceCartLocalStorage}} VND</p>
+          </div>
+          <div class="right-5" (click)="routePageCart()">
+            <span class="right-5-1">CONFIRM CART</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div>
+    <app-footer></app-footer>
+  </div>
+</div>

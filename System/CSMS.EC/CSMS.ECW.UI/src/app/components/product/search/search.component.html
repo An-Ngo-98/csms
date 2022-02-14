@@ -1,0 +1,23 @@
+<div style="background-color: #eee;">
+    <div>
+        <app-navbar></app-navbar>
+    </div>
+    <div class="container" style="margin-bottom: -2%;">
+        <div class="row food-4">
+            <div class="col-md-3" *ngFor="let product of product && product.items">
+                <ul class="ul-food-4" style="padding-left: 0%;">
+                    <li class="info-food">
+                        <img style="width: 100%;cursor: pointer; height: 140px;" routerLink='/product/detail/{{product.id}}' src="{{getImg(product.avatarId)}}">
+                        <p class="info-food-one">{{product.name}}</p>
+                        <p class="info-food-two">{{product.description}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <mat-paginator class="mat-paginator" [length]="product && product.items.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event">
+        </mat-paginator>
+    </div>
+    <div>
+        <app-footer></app-footer>
+    </div>
+</div>

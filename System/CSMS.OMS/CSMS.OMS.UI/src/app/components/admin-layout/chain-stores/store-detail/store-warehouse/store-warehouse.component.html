@@ -1,0 +1,47 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <button class="btn btn-primary m-0" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!listStoreWarehouse"></app-loading-spinner>
+
+    <div *ngIf="listStoreWarehouse?.length > 0" class="fixed-wrapper material-management row">
+      <div *ngFor="let mat of listStoreWarehouse; let i = index;" class="col-md-3 pb-3">
+        <div class="product-box">
+          <div class="card-body row py-0">
+            <div class="col">
+              <h5 class="card-title my-2">{{mat.materialName}} </h5>
+            </div>
+            <div class="col">
+              <h5 class="card-title my-2 text-right">{{mat.amount + ' ' + mat.unit}} </h5>
+            </div>
+            <div class="w-100 m-auto py-2 pr-2">
+              <button (click)="updateQuantity(-1, i)" [class.disabled]="mat.amount === 0"
+                class="btn btn-outline-primary btn-fab btn-icon btn-round float-right m-0 ml-2">
+                -
+              </button>
+              <button (click)="updateQuantity(1, i)" [class.disabled]="mat.amount === oldValue[i].amount"
+                class="btn btn-outline-primary btn-fab btn-icon btn-round float-right m-0">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loading && listStoreWarehouse" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <div *ngIf="listStoreWarehouse?.length === 0" class="text-center">Cannot find any material...</div>
+  </div>
+</div>

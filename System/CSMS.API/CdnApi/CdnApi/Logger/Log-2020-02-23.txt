@@ -1,0 +1,11 @@
+ERROR[2020-02-23 21:34:15]:: UploadProductPhotoCommand:: ProductId: 1||Message: An error occurred while updating the entries. See the inner exception for details.||Inner: Unable to cast object of type 'System.Int64' to type 'System.Int32'.||StackTrace:    at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(DbContext _, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at CdnApi.Data.Services.EfRepository`1.InsertAsync(T entity) in C:\Users\thuyd\Desktop\CSMS\System\CSMS.API\CdnApi\CdnApi.Data\Services\EfRepository.cs:line 36
+   at CdnApi.Business.Product.Commands.UploadProductPhoto.UploadProductPhotoCommand.ExecuteAsync(IFormFile file, Int32 productId) in C:\Users\thuyd\Desktop\CSMS\System\CSMS.API\CdnApi\CdnApi.Business\Product\Commands\UploadProductPhoto\UploadProductPhotoCommand.cs:line 81||Source: Microsoft.EntityFrameworkCore.Relational[ENDLOG]

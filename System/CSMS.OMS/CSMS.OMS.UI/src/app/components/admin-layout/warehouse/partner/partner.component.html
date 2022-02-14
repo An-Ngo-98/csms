@@ -1,0 +1,72 @@
+<div class="row mt--15">
+  <div class="col-md-12">
+    <div class="card p-3">
+      <nav class="breadcrumb pr-0">
+        <div class="row w-100 pl-2">
+          <div class="col-12 text-right pr-0">
+            <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onView()">+ Add</button>
+          </div>
+        </div>
+        <div class="row w-100 pl-2">
+          <div class="col-sm-12 col-lg-10">
+            <div class="row">
+              <div class="col-md-12 px-1">
+                <div class="form-group">
+                  <input class="form-control" placeholder="Partner name" type="text" [(ngModel)]="searchString"
+                    (keyup.enter)="getListPartner()">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-2 text-right pr-0">
+            <button type="submit" class="btn btn-primary m-0" (click)="getListPartner()">Search</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <app-loading-spinner *ngIf="!listPartner"></app-loading-spinner>
+
+          <div *ngIf="listPartner?.items.length === 0" class="text-center">Cannot find any partner...</div>
+
+          <div *ngIf="listPartner?.items.length > 0" class="fixed-wrapper">
+            <div class="row pt-3">
+              <div *ngFor="let part of listPartner.items; let i = index;" class="col-sm-12 col-md-6 col-lg-4 pb-3">
+                <div class="product-box">
+                  <div class="card-body pt-3">
+                    <h5 class="card-title mt-2">{{part.name}} </h5>
+
+                    <span class="card-text">
+                      <small>Materials: {{getListMaterial(part.materials)}}</small> <br>
+                      <small>Contact: {{part.phoneNumber}}</small> <br>
+                      <small>Address: {{part.address}}</small>
+                    </span>
+
+                    <div class="row">
+                      <div class="col-12 mt-1">
+                        <div class="mb-0 float-right">
+                          <button type="button" class="btn btn-info btn-sm" (click)="onView(part.id)">View</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="loading && listPartner" id="loading">
+              <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+            </div>
+          </div>
+
+          <app-pagination *ngIf="listPartner" [totalCount]="listPartner?.totalCount" [currentPageIndex]="page"
+            [pageSize]="pageSize" [savePageSize]="false" (onPageChangeEvent)="getListPartner($event, pageSize)"
+            (onPageSizeChangeEvent)="getListPartner(1, $event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

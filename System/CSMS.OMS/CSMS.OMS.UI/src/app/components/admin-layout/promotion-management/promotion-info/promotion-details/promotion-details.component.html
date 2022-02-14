@@ -1,0 +1,95 @@
+<div class="row mt--15">
+  <div class="col-md-12">
+    <div *ngIf="promotion" class="card">
+      <div class="card-header">
+        <h5 class="card-title">{{promotion.title}}</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-4">
+                <p>Start time: </p>
+                <p>End time: </p>
+                <p>Time in day: </p>
+                <p>Categories: </p>
+              </div>
+              <div class="col-8">
+                <p class="text-info">{{parseDateToString(promotion.startTime.toString(), 'No limit')}}</p>
+                <p class="text-info">{{parseDateToString(promotion.endTime?.toString(), 'No limit')}}</p>
+                <p class="text-info">{{promotion.startTimeInDate ? promotion.startTimeInDate : 'No limit'}} -
+                  {{promotion.endTimeInDate ? promotion.endTimeInDate : 'No limit'}}</p>
+                <p class="text-info">{{formatAppliedProducts(promotion)}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-7">
+                <p>promotion type: </p>
+                <p>Discount percent: </p>
+                <p>Max discount: </p>
+                <p>Applied devices: </p>
+              </div>
+              <div class="col-5">
+                <p class="text-info">{{promotion.eventTypeId === 1 ? 'FREE SHIP' : 'DISCOUNT'}}</p>
+                <p class="text-info">{{promotion.discountPercent ? promotion.discountPercent + ' %' : 'No limit'}}</p>
+                <p class="text-info">{{convertCurrency(promotion.maxDiscount, 'No limit')}}</p>
+                <p class="text-info">{{promotion.deviceIds.length}} devices</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-7">
+                <p>Quantity limit: </p>
+                <p>Account limit: </p>
+                <p>Min total invoice: </p>
+                <p>Status: </p>
+              </div>
+              <div class="col-5">
+                <p class="text-info">{{formatLimit(promotion.quantityLimit)}}</p>
+                <p class="text-info">{{formatLimit(promotion.accountLimit)}}</p>
+                <p class="text-info">{{convertCurrency(promotion.minTotalInvoice, 'No limit')}}</p>
+                <p class="text-info" [class.text-info]="getStatus() === 'On going'"
+                  [class.text-danger]="getStatus() === 'Will going'" [class.text-muted]="getStatus() === 'Finished'">
+                  {{getStatus()}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <p>Description:
+              <span class="ml-5">{{promotion.description}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <hr>
+        <div class="stats">
+          <ui-switch color="#6bd098" defaultBgColor="#ef8157" class="d-inline-block mb-0"
+            [(ngModel)]="promotion.enabled" ngbTooltip="{{promotion.enabled ? 'Enabled' : 'Disabled'}}"
+            (change)="onChangeStatus($event)">
+          </ui-switch>
+          <span class="pl-3 mt-2 position-absolute">
+            {{promotion.enabled ? 'Enabled' : 'Disabled'}}
+          </span>
+          <div class="float-right">
+            <button type="button" class="btn btn-info" (click)="onEdit()">Edit</button>
+            <button *ngIf="enableStartButton()" (click)="onStartNow()" type="button" class="btn btn-success ml-2">
+              Start now
+            </button>
+            <button *ngIf="enableStopButton()" type="button" class="btn btn-danger ml-2" (click)="onStopNow()">
+              Stop now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" id="loading">
+      <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UsersApi.Common\UsersApi.Common.csproj" />
+    <ProjectReference Include="..\UsersApi.Constants\UsersApi.Constants.csproj" />
+    <ProjectReference Include="..\UsersApi.Data\UsersApi.Data.csproj" />
+  </ItemGroup>
+
+</Project>

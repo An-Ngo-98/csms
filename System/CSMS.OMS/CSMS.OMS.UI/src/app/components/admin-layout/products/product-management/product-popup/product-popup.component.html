@@ -1,0 +1,110 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Add/Edit Product</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+
+          <div class="col-md-4 pl-1 product-avatar">
+            <img [src]="newAvatarUrl ? newAvatarUrl : getProductPhotoUrl(product.avatarId, product.isNewAvatar, 270)"
+              alt="Product avatar">
+            <input class="d-none" #fileAvatar type="file" accept="image/*" (change)="onUploadAvatar(fileAvatar.files)">
+            <div class="overlay" (click)="fileAvatar.click()">
+              <i class="fa fa-edit fa-2x avatar-text"></i>
+            </div>
+          </div>
+
+          <div class="col-md-8 pl-1 image-list">
+            <div class="overlay-region" *ngFor="let photo of product.photos">
+              <img [src]="getProductPhotoUrl(photo.photoId)">
+              <div class="overlay">
+                <app-delete-confirm (executeDelete)="onDeleteOldPhoto(photo)" class="avatar-text" [iconSize]="'2x'"
+                  [message]="Message.ProductManagement.DELETE_PHOTO">
+                </app-delete-confirm>
+              </div>
+            </div>
+
+            <div class="overlay-region" *ngFor="let url of newPhotoUrls; let i = index;">
+              <img [src]="url">
+              <div class="overlay">
+                <app-delete-confirm (executeDelete)="onDeleteNewPhoto(i)" class="avatar-text" [iconSize]="'2x'"
+                  [message]="Message.ProductManagement.DELETE_PHOTO">
+                </app-delete-confirm>
+              </div>
+            </div>
+
+            <input class="d-none" #file type="file" accept="image/*" multiple="true"
+              (change)="onUploadPhotos(file.files)">
+            <i class="fa fa-plus-circle fa-2x cursor-pointer text-success ml-3" (click)="file.click()"
+              ngbTooltip="Upload images" placement="right"></i>
+            <span
+              *ngIf="(!product.photos || product.photos.length === 0) && (!newPhotoUrls || newPhotoUrls.length === 0)"
+              (click)="file.click()" class="pl-2 cursor-pointer card-link"> Upload image
+            </span>
+          </div>
+
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" class="form-control" placeholder="Name" [(ngModel)]="product.name">
+            </div>
+          </div>
+
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Category</label>
+              <app-dropdown [listData]="listCategory" [selectedItemId]="product.categoryId"
+                (selectedItemEmit)="product.categoryId = $event.key"></app-dropdown>
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Code</label>
+              <input type="text" class="form-control" placeholder="Code" [(ngModel)]="product.code">
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="number" class="form-control" placeholder="Price" [(ngModel)]="product.price">
+            </div>
+          </div>
+          <div class="col-8 pl-1">
+            <div class="form-group">
+              <label>Short description</label>
+              <input type="text" class="form-control" placeholder="Short des." [(ngModel)]="product.shortDescription"
+                maxlength="300">
+            </div>
+          </div>
+          <div class="col-12 pl-1">
+            <div class="form-group">
+              <label>Search keys</label>
+              <tag-input [(ngModel)]="listSearchString" ngbTooltip="Press enter to finish" [modelAsStrings]="true" [theme]="'minimal'" class="form-control"> </tag-input>
+            </div>
+          </div>
+          <div class="col-12 pl-1">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea type="text" class="form-control textarea" placeholder="Des."
+                [(ngModel)]="product.description"></textarea>
+            </div>
+          </div>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <ui-switch [(ngModel)]="product.enabled" color="#6bd098" defaultBgColor="#ef8157"
+              class=" d-inline-block pt-3 mb-0" ngbTooltip="{{product.enabled ? 'Enabled' : 'Disabled'}}">
+            </ui-switch>
+            <span class="pl-3 mt-4 position-absolute">{{product.enabled ? 'Enabled' : 'Disabled'}}</span>
+            <button [disabled]="loading" class="btn btn-primary float-right " (click)="onSave()">
+              <span *ngIf="!loading">Save</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50001
+        }
+      ],
+      "UpstreamPathTemplate": "/users-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50002
+        }
+      ],
+      "UpstreamPathTemplate": "/cdn-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50003
+        }
+      ],
+      "UpstreamPathTemplate": "/system-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50004
+        }
+      ],
+      "UpstreamPathTemplate": "/products-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50005
+        }
+      ],
+      "UpstreamPathTemplate": "/promotions-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 50006
+        }
+      ],
+      "UpstreamPathTemplate": "/invoices-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/{catchAll}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "csms-warehouse-api.herokuapp.com",
+          "Port": 433
+        }
+      ],
+      "UpstreamPathTemplate": "/warehouse-api/{catchAll}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:3001"
+  }
+}

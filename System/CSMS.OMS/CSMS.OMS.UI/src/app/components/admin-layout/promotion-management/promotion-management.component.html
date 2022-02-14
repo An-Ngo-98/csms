@@ -1,0 +1,105 @@
+<div class="row mt--15">
+  <div class="col-md-12">
+    <div class="card p-3">
+      <nav class="breadcrumb pr-0">
+        <div class="row w-100 pl-2">
+          <div class="col-12 text-right pr-0">
+            <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onAdd()">+ Add</button>
+          </div>
+        </div>
+        <div class="row w-100 pl-2">
+          <div class="col-sm-12 col-lg-10">
+            <div class="row">
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Search for</label>
+                  <input class="form-control" placeholder="Code, Title, Description..." type="text"
+                    [(ngModel)]="searchString" ngbTooltip="use &quot;,&quot; or &quot;;&quot; for multi result"
+                    (keyup.enter)="getListPromotion(1)">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Search by</label>
+                  <app-dropdown [listData]="listSearchBy" [selectedItemId]="searchBySelected"
+                    (selectedItemEmit)="searchBySelected = $event.key"></app-dropdown>
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <label>Start date</label>
+                <app-date-picker (selectedDateEmit)="startDate = $event" [setDate]="startDate"
+                  [disabled]="searchBySelected !== SearchBy.StartDate.toString() && searchBySelected !== SearchBy.EndDate.toString()">
+                </app-date-picker>
+              </div>
+              <div class="col-md-3 px-1">
+                <label>End date</label>
+                <app-date-picker [minDate]="startDate" (selectedDateEmit)="endDate = $event" [setDate]="endDate"
+                  [disabled]="searchBySelected !== SearchBy.StartDate.toString() && searchBySelected !== SearchBy.EndDate.toString()">
+                </app-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-2 text-right pr-0">
+            <br>
+            <button type="submit" class="btn btn-primary mt-1" (click)="getListPromotion(1)">Search</button>
+          </div>
+        </div>
+      </nav>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <app-loading-spinner *ngIf="!listPromotion"></app-loading-spinner>
+
+          <div *ngIf="listPromotion" class="fixed-wrapper">
+            <div class="row pt-3">
+
+              <div *ngFor="let env of listPromotion.items; let i = index;" class="col-sm-612 col-md-6 col-lg-4 pb-3">
+                <div class="product-box">
+                  <div class="card-body pt-3">
+                    <h5 class="card-title mt-2">{{env.title}}
+                      <sup>
+                        <i [ngClass]="env.enabled ? 'fa fa-check-circle text-success' : 'fa fa-times-circle text-danger'"
+                          ngbTooltip="{{env.enabled ? 'Enabled' : 'Disabled'}}"></i>
+                      </sup>
+                    </h5>
+
+                    <span class="card-text">
+                      <i class="fa fa-clock-o fa-lg pr-2"></i>
+                      <small>{{parseDateToString(env.startDate)}} - {{parseDateToString(env.endDate)}}</small>
+                      <i class="fa fa-ioxhost fa-lg pl-5 pr-2"></i>
+                      <small>{{env.platforms.join(', ')}}</small>
+                    </span>
+
+                    <div class="row">
+                      <div class="col-12 mt-1">
+                        <span [class.badge-info]="getStatus(env) === 'On going'"
+                          [class.badge-danger]="getStatus(env) === 'Will going'"
+                          [class.badge-muted]="getStatus(env) === 'Finished'"
+                          class="badge d-inline-block mt-3 mb-0 pl-1 pr-1">
+                          {{getStatus(env)}}
+                        </span>
+                        <div class="mb-0 float-right">
+                          <button type="button" class="btn btn-info btn-sm" (click)="onViewEvent(env)">View</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="loading && listPromotion" id="loading">
+              <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+            </div>
+          </div>
+
+          <app-pagination *ngIf="listPromotion" [totalCount]="listPromotion?.totalCount" [currentPageIndex]="page"
+            [listPageSize]="listPageSize" [pageSize]="pageSize" [savePageSize]="false"
+            (onPageChangeEvent)="getListPromotion($event, pageSize)" (onPageSizeChangeEvent)="getListPromotion(1, $event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

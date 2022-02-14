@@ -1,0 +1,53 @@
+.min-wp-250 {
+  min-width: 250px;
+}
+
+.tr-click:hover {
+  cursor: pointer;
+  background-color: aliceblue;
+}
+
+.dropdown-menu {
+  position: fixed !important;
+}
+
+.dropdown-menu.show {
+  position: absolute !important;
+}
+
+agm-map {
+  height: 400px;
+}
+
+.m-h-f-cont {
+  max-height: fit-content !important;
+}
+
+.input-group-text {
+  font-size: 14px;
+}
+
+.disabled-white {
+  background-color: white !important;
+}
+
+.disabled {
+  background-color: #E3E3E3 !important;
+}
+
+.bg-white {
+  background-color: #FFFFFF !important;
+}
+
+.ng2-dropdown-menu {
+  z-index: 1050 !important;
+}
+
+.center-col {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.border-none {
+  border: none !important;
+}

@@ -1,0 +1,84 @@
+<!-- <ngx-loading [show]="(loading$ | async)?.loadingEntities"></ngx-loading> -->
+<div class="container">
+  <div class="row">
+    <form name="createAddressForm" [formGroup]="createAddressForm">
+      <p class="login-title">{{isEditing ? 'UPDATE ADDRESS' : 'CREATE ADDRESS'}}</p>
+      <mat-form-field class="input-1" appearance="outline">
+        <mat-label>Receiver *</mat-label>
+        <input matInput formControlName="receiver">
+        <mat-error *ngIf="newAddressFormErrors.receiver.required">
+          Receiver is required
+      </mat-error>
+      </mat-form-field>
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="phoneNumber">
+        <mat-error *ngIf="newAddressFormErrors.phoneNumber.required">
+          Phonenumber is required
+      </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country">
+          <mat-option>None</mat-option>
+          <mat-option value="Việt Nam">Việt Nam</mat-option>
+        </mat-select>
+        <mat-error *ngIf="newAddressFormErrors.country.required">
+          Country is required
+      </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Province</mat-label>
+        <mat-select formControlName="province" (selectionChange)="onSelectProvinces($event)">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let province of provinces" [value]="province.name" >{{province.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="newAddressFormErrors.province.required">
+          Province is required
+      </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>District</mat-label>
+        <mat-select formControlName="district" (selectionChange)="onSelectDistrict($event)">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let district of districts" [value]="district.name">{{district.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="newAddressFormErrors.district.required">
+          District is required
+      </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Ward</mat-label>
+        <mat-select formControlName="ward">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let ward of wards" [value]="ward.name">{{ward.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="newAddressFormErrors.ward.required">
+          Ward is required
+      </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Detail</mat-label>
+        <input matInput formControlName="detail">
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="row">
+    <div class="div-button-login">
+      <button class="button-login-1" (click)="close()" mat-flat-button>Cancel</button>
+      <div style="margin-top: -2.8em; width: 155px; margin-left: 50%;">
+        <button class="button-login" (click)="submit()" mat-flat-button [disabled]="!createAddressForm.dirty || createAddressForm.invalid">
+          <!-- {{isEditing ? 'Update' : 'Create'}} -->
+          <mat-spinner style="margin:0 auto;" [diameter]=30 *ngIf="(loadingAddress$ | async)?.createEntity"></mat-spinner>
+          <span *ngIf="!(loadingAddress$ | async)?.createEntity && isEditing">Update</span>
+          <span *ngIf="!(loadingAddress$ | async)?.createEntity && !isEditing">Create</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

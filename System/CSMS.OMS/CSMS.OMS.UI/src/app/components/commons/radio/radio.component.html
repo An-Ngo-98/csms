@@ -1,0 +1,9 @@
+<div [class.cursor-pointer]="!disabled" [class.fa-disabled]="disabled">
+  <a *ngIf="position == 'left' && text" class="mr-2" [class.cursor-pointer]="!checked" (click)="onClick()">{{text}}</a>
+
+  <i class="fa fa-circle-o fa-lg" *ngIf="!checked" (click)="onClick()"></i>
+
+  <i class="fa fa-check-circle fa-lg text-info" *ngIf="checked" (click)="onClick()"></i>
+
+  <a *ngIf="position == 'right' && text" class=" ml-2" (click)="onClick()">{{text}}</a>
+</div>

@@ -1,0 +1,68 @@
+<nav class="breadcrumb pr-0">
+
+  <div class="row w-100 pl-2">
+    <div class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onAddEditMaterial()">+ Add</button>
+    </div>
+  </div>
+
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-12 px-1">
+          <div class="form-group">
+            <input class="form-control" placeholder="Material name" type="text" [(ngModel)]="searchString"
+              (keyup.enter)="getListMaterial()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <button type="submit" class="btn btn-primary m-0" (click)="getListMaterial()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!listMaterial"></app-loading-spinner>
+
+    <div *ngIf="listMaterial?.items.length > 0" class="fixed-wrapper material-management">
+      <table class="fixed-table w-100">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Material name</th>
+            <th>Unit</th>
+            <th>Partners</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mat of listMaterial?.items; let i = index;">
+            <td> {{mat.id}} </td>
+            <td> {{mat.name}} </td>
+            <td> 
+              {{mat.unit}} {{mat.amount ? ('(' + mat.amount + ' items per unit)') : ''}}
+            </td>
+            <td> {{mat.partners.join(', ')}} </td>
+            <td class="text-center" style="width: 100px">
+              <i class="fa fa-edit text-primary" (click)="onAddEditMaterial(mat, i)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="loading && listMaterial" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <div *ngIf="listMaterial?.items.length === 0" class="text-center">Cannot find any material...</div>
+
+    <app-pagination *ngIf="listMaterial" [totalCount]="listMaterial?.totalCount" [currentPageIndex]="page"
+      [pageSize]="pageSize" (onPageChangeEvent)="getListMaterial($event, pageSize)"
+      (onPageSizeChangeEvent)="getListMaterial(1, $event)"></app-pagination>
+  </div>
+</div>

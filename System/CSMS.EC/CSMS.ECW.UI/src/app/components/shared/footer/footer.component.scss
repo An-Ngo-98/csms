@@ -1,0 +1,31 @@
+.row-footer-1 {
+    width: 100%;
+    padding-top: 3%;
+    padding-left: 5%;
+    padding-bottom: 1%;
+    .col-footer-1 {
+        margin-left: 10%;
+    }
+    .img-footer-2 {
+        position: absolute;
+    }
+    .img-footer-1 {
+        margin-left: -4%;
+    }
+}
+
+.row-footer-2 {
+    width: 100%;
+    margin-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 2%;
+    .span-footer-2 {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+// common
+.footer-1 {
+    border-bottom: 1px solid #ffe9e9;
+}

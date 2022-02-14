@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <form name="loginForm" [formGroup]="loginForm">
+            <p class="login-title">LOGIN</p>
+            <mat-form-field class="input-1" appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="loginFormErrors.email.required">
+                    Username is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="input-2" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password">
+                <mat-error *ngIf="loginFormErrors.email.required">
+                    Password is required
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="row">
+        <div>
+            <mat-checkbox class="checkbox-remember"></mat-checkbox>
+            <p class="title-1">Remember me</p>
+            <p class="title-2">Forgot password?</p>
+        </div>
+        <div class="div-button-login">
+            <button class="button-login" (click)="login()" mat-flat-button [disabled]="!loginForm.dirty || !loginForm.valid">
+                <mat-spinner style="margin:0 auto;" [strokeWidth]=3 [diameter]=30 *ngIf="(loading$ | async)?.loginEntity"></mat-spinner>
+                <span *ngIf="!(loading$ | async)?.loginEntity">Login</span>
+            </button>
+        </div>
+        <div class="item_fb" (click)="socialSignIn('facebook')">
+            <span style="float: left; margin-left: 5%; margin-right: -5%;">
+                <i class="fab fa-facebook"></i>
+            </span>
+            <span>Facebook</span>
+        </div>
+        <div class="item_gg" (click)="socialSignIn('google')">
+            <span style="float: left; margin-left: 5%; margin-right: -5%;">
+                <i class="fab fa-google-plus"></i>
+            </span>
+            <span>Google</span>
+        </div>
+        <div class="title-3">
+            <span style="white-space: nowrap ;">Don't have an account at Panda Store? </span>
+            <span style="cursor: pointer;" (click)="openModalSignUp()">Sign up</span>
+        </div>
+    </div>
+</div>

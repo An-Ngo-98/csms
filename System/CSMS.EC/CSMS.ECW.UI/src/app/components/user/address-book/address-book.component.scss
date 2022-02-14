@@ -1,0 +1,43 @@
+.info-user {
+    border: 1px solid #ffe9e9;
+    margin-top: 1.6em;
+    background-color: white;
+    margin-left: 2%;
+    height: 501px;
+   .new-address {
+    border-width: 1px;
+    border-style: dashed;
+    border-color: rgb(216, 216, 216);
+    margin-top: 3%;
+    width: 40%;
+    margin-left: 30%;
+    text-align: center;
+    padding-top: 1%;
+    .new-address-text {
+        margin-top: 1%;
+    }
+   }
+   
+   .table-order {
+    margin-top: 2%;
+    box-shadow: none;
+    .box-shadow-off {
+        box-shadow: none;
+        .example-container {
+            height: 345px;
+            background: white;
+            overflow: auto;
+            table {
+                width: 100%;
+            }
+        }
+    }
+}
+}
+
+.div-button-update {
+    position: absolute;
+    margin-top: -7%;
+    margin-left: 28%;
+    font-size: 15px;
+}

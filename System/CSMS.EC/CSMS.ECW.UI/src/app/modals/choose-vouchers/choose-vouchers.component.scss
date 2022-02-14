@@ -1,0 +1,57 @@
+.container {
+  .row {
+    .login-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+    }
+    .input-1 {
+      width: 100%;
+      margin-left: 10%;
+    }
+    .input-2 {
+      width: 100%;
+      margin-left: 10%;
+    }
+    .div-button-login {
+      width: 100%;
+      margin-top: 2%;
+      text-align: center;
+      .button-login-1 {
+          cursor: pointer;
+          width: 155px;
+          height: 35px;
+          margin-top: 10px;
+          color: rgb(51, 51, 51);
+          font-size: 17px;
+          font-weight: 500;
+          padding: 0px;
+          background: rgb(253, 210, 47);
+          border-width: 0px;
+          border-style: initial;
+          border-color: initial;
+          border-image: initial;
+          border-radius: 4px;
+          outline: none;
+          margin-right: 2%;
+      }
+      .button-login-2 {
+          cursor: pointer;
+          width: 155px;
+          height: 35px;
+          margin-top: 10px;
+          color: rgb(51, 51, 51);
+          font-size: 17px;
+          font-weight: 500;
+          padding: 0px;
+          background: rgb(253, 210, 47);
+          border-width: 0px;
+          border-style: initial;
+          border-color: initial;
+          border-image: initial;
+          border-radius: 4px;
+          outline: none;
+      }
+    }
+  }
+}

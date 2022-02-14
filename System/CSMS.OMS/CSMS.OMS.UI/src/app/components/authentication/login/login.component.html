@@ -1,0 +1,57 @@
+<div style="background-color: #666666;">
+
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <form class="login100-form validate-form">
+          <span class="login100-form-title p-b-43">
+            Login to continue
+          </span>
+
+          <div class="wrap-input100" [class.border-required]="error && !form.username">
+            <input class="input100" [class.has-val]="form.username" type="text" autocomplete="new-password"
+              [(ngModel)]="form.username" [ngModelOptions]="{standalone: true}">
+            <span class="focus-input100"></span>
+            <span class="label-input100">Email</span>
+          </div>
+
+
+          <div class="wrap-input100" [class.border-required]="error && !form.password">
+            <input class="input100" [class.has-val]="form.password" type="password" autocomplete="new-password"
+              [(ngModel)]="form.password" [ngModelOptions]="{standalone: true}">
+            <span class="focus-input100"></span>
+            <span class="label-input100">Password</span>
+          </div>
+
+          <div class="flex-sb-m w-full p-t-3 p-b-25">
+            <div class="contact100-form-checkbox">
+              <input class="input-checkbox100" id="ckb1" type="checkbox" [(ngModel)]="form.rememberme"
+                [ngModelOptions]="{standalone: true}">
+              <label class="label-checkbox100 nc-icon nc-check-2" for="ckb1">
+                Remember me
+              </label>
+            </div>
+
+            <div>
+              <a class="txt1">
+                Forgot Password?
+              </a>
+            </div>
+          </div>
+
+          <span *ngIf="error" class="flex-sb-m text-danger p-b-25">{{errorMessage}}</span>
+
+          <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn" (click)="onSubmit()">
+              <app-loading-spinner *ngIf="loading" [color]="spinnerColor"></app-loading-spinner>
+              <span *ngIf="!loading">Login</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="login100-more" [style.backgroundImage]="'url('+ backgroundUrl +')'">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

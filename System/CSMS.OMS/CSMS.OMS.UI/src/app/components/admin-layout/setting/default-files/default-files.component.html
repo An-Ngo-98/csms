@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="loading && files.length === 0"></app-loading-spinner>
+
+    <div *ngIf="files.length > 0" class="row pt-3">
+      <div *ngFor="let file of files; let i = index;" class="col-sm-6 col-md-4 col-lg-3 min-wp-250 pb-3">
+        <div class="product-box h-auto">
+          <div class="col-md-4 pl-0 product-avatar m-h-f-cont">
+            <img class="card-img-top cursor-pointer m-h-f-cont" [src]="getPhotoUrl(file.id, file.isNew)"
+              alt="Default photo" />
+            <div class="overlay" (click)="onClickUpload(i)">
+              <i class="fa fa-edit fa-2x avatar-text"></i>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <h6 class="text-center">{{file.title}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading && files.length > 0" id="loading">
+      <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+    </div>
+  </div>
+</div>
+
+<p class="text-center text-danger w-100 mt-3">{{errorMessage}}</p>
+
+<input class="d-none" #fileSelect type="file" accept="image/*" (change)="saveFile(fileSelect.files)">

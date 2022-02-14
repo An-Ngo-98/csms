@@ -1,0 +1,108 @@
+<nav class="breadcrumb pr-0">
+
+  <div class="row w-100 pl-2">
+    <div class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onClickAddCustomer()">+ Add</button>
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onExport()">Export</button>
+    </div>
+  </div>
+
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-6 px-1">
+          <div class="form-group">
+            <label>Search for</label>
+            <input class="form-control" placeholder="Id, Name, Email, Phone Number..." type="text"
+              [(ngModel)]="searchFor" title="use &quot;,&quot; or &quot;;&quot; for multi result"
+              (keyup.enter)="getListCustomer()">
+          </div>
+        </div>
+        <div class="col-md-4 px-1">
+          <div class="form-group">
+            <label>Status</label>
+            <app-dropdown [listData]="listStatus" [selectedItemId]="statusSelected"
+              (selectedItemEmit)="statusSelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getListCustomer()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!listCustomer"></app-loading-spinner>
+
+    <div *ngIf="listCustomer" class="fixed-wrapper customer-management">
+      <div class="fixed-scroller">
+        <table class="fixed-table">
+          <thead>
+            <tr>
+              <th class="fixed-sticky-col col-checkbox text-center">
+                <app-checkbox [checked]="isAppearedCheckAll" [disabled]="listCustomer?.totalCount == 0"
+                  (checkedCallback)="onClickCheckedAllItem($event)"></app-checkbox>
+              </th>
+              <th class="fixed-sticky-col col-name">Customer name</th>
+              <th>Citizen ID</th>
+              <th>Birthday</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Gender</th>
+              <th>Address</th>
+              <th>Account Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cust of listCustomer?.items; let i = index;">
+              <td class="fixed-sticky-col text-center-all col-checkbox">
+                <app-checkbox [checked]="cust.selected" (checkedCallback)="onClickCheckedItem($event, i)">
+                </app-checkbox>
+              </td>
+              <td class="fixed-sticky-col col-name">
+                <div class="media align-items-center">
+                  <span class="avatar avatar-md mb-0 rounded-circle cursor-pointer">
+                    <img alt="Image placeholder" src="{{avatarUrl.replace('{0}',cust.customerId)}}">
+                  </span>
+                  <div class="media-body ml-2 d-lg-block">
+                    <span class="f-s-md cursor-pointer" (click)="onClickViewUserProfile(cust.customerId)">
+                      {{cust.fullName}}
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td> {{cust.citizenId}} </td>
+              <td> {{parseDateToString(cust.birthday)}} </td>
+              <td> {{cust.username}} </td>
+              <td> {{cust.email}} </td>
+              <td> {{cust.phoneNumber}} </td>
+              <td> {{cust.gender}} </td>
+              <td> {{cust.address}} </td>
+              <td> {{cust.status}} </td>
+              <td class="text-right">
+                <app-delete-confirm *ngIf="cust.role !== 'Admin'" (executeDelete)="deleteCustomer(cust.customerId)"
+                  [message]="Message.CustomerManagement.DELETE_CUSTOMER.replace('{0}', cust.fullName)">
+                </app-delete-confirm>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="loading && listCustomer" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listCustomer" [totalCount]="listCustomer?.totalCount" [currentPageIndex]="page"
+      [pageSize]="pageSize" (onPageChangeEvent)="getListCustomer($event, pageSize)"
+      (onPageSizeChangeEvent)="getListCustomer(1, $event)"></app-pagination>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+.a {
+  background-color: #fff;
+  .row-nav-1 {
+    background-color: white;
+    margin-left: 7.5em;
+    margin-right: 7.5em;
+    .nav-button-1 {
+      margin-top: 3%;
+      font-size: 19px;
+      border: 1px solid #eee;
+      margin-top: 45%;
+      margin-left: -7%;
+    }
+    .item {
+      margin-top: 3%;
+      .img-represent {
+        width: 100%;
+      }
+      .item-food {
+        margin-right: 3%;
+        font-size: 18px;
+      }
+    }
+    .auth-user {
+      margin-top: 13%;
+      margin-left: 10%;
+      .auth-user-1 {
+        width: 42%;
+        height: 35px;
+        border-width: 2px;
+        border-style: solid;
+        .auth-user-1-1 {
+          font-size: 21px;
+          margin-top: 6%;
+          margin-left: 11%;
+        }
+        .auth-user-1-2 {
+          float: right;
+          font-size: 11px;
+          margin-right: 4%;
+        }
+      }
+    }
+    .cart-user {
+      width: 35%;
+      position: absolute;
+      margin-top: -1.76em;
+      border-width: 2px;
+      border-style: solid;
+      margin-left: 48%;
+      height: 35px;
+      font-size: 20px;
+      outline: none;
+      .cart-user-2 {
+        float: right;
+        margin-right: 23%;
+        font-size: 17px;
+        margin-top: 3%;
+        .cart-user-2-2 {
+          width: 12%;
+          position: absolute;
+          margin-top: -2.55em;
+          border-radius: 2px;
+          margin-left: 43%;
+          text-align: center;
+          background: #fdd835;
+        }
+      }
+      .cart-user-1 {
+        margin-left: 6%;
+      }
+    }
+    .item-nav-login {
+      border: 1px solid #eee;
+      margin-top: 11%;
+      margin-left: 10%;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .item-nav-signup {
+      border: 1px solid #eee;
+      cursor: pointer;
+      margin-top: 11%;
+      margin-left: 2%;
+      font-size: 18px;
+    }
+    .profile-user {
+      width: 10%;
+      position: absolute;
+      margin-left: 68%;
+      border-radius: 20px;
+      margin-top: -2.6em;
+    }
+    .nav-icon-search {
+      position: absolute;
+      font-size: 25px;
+      margin-top: 11%;
+    }
+    // .checkout-cart {
+    //   position: absolute;
+    //   margin-top: -1.05em;
+    //   font-size: 30px;
+    //   margin-left: 80%;
+    // }
+  }
+  .search-food {
+    position: absolute;
+    border: 2px solid red;
+    border-radius: 25px;
+    margin-top: 19%;
+    margin-left: 30%;
+    outline: none;
+    height: 7%;
+    width: 39%;
+    padding-left: 1%;
+  }
+  .info-one {
+    position: absolute;
+    margin-top: 12%;
+    margin-left: 35%;
+    color: floralwhite;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .info-two {
+    position: absolute;
+    margin-top: 15%;
+    margin-left: 36%;
+    font-weight: 700;
+    color: floralwhite;
+    font-size: 24px;
+  }
+  .search-food-icon {
+    position: absolute;
+    margin-top: 19.1em;
+    height: 4%;
+    width: 2%;
+    border-radius: 7px;
+    background-color: red;
+    margin-left: 65%;
+    .icon-search {
+      font-size: 21px;
+      padding-top: 16%;
+      color: white;
+      padding-left: 13%;
+    }
+  }
+}

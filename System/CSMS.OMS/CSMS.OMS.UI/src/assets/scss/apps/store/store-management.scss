@@ -1,0 +1,77 @@
+$width-fixed-col-1: 110px;
+
+$margin-left-col-2: 110px;
+$width-fixed-col-2: 200px;
+
+$total-width-fixed-columns: 310px;
+
+.store-management {
+  .fixed-scroller {
+    margin-left: $total-width-fixed-columns;
+  }
+
+  .fixed-table {
+
+    .tr-click:hover>.fixed-sticky-col {
+      cursor: pointer;
+      background-color: aliceblue;
+    }
+
+    .fixed-sticky-col.col-short-name {
+      width: $width-fixed-col-1;
+    }
+
+    .fixed-sticky-col.col-name {
+      margin-left: $margin-left-col-2;
+      width: $width-fixed-col-2;
+    }
+
+    .fixed-sticky-col.col-name.text-center-col {
+      padding-top: 20px;
+    }
+  }
+}
+
+.w-p-100 {
+  width: 100px;
+}
+
+.center-row {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.min-hp-140 {
+  min-height: 140px;
+}
+
+.store-product-list {
+  min-height: 180px;
+  position: relative;
+  border-radius: 0.25rem !important;
+  border: 1px solid #17a2b8 !important;
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow:
+    0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.store-product-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

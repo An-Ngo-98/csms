@@ -1,0 +1,63 @@
+.button-signup {
+  width: 35%;
+  height: 40px;
+  // margin-top: 10px;
+  color: rgb(51, 51, 51);
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0px;
+  background: rgb(253, 210, 47);
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+.container {
+  .row {
+    .title-signup {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 0%;
+    }
+    .input-1 {
+      font-size: 12px;
+      width: 70%;
+      margin-left: 15%;
+      margin-bottom: -1%;
+    }
+    .title-sex {
+      margin-left: 5.3em;
+    }
+    .radio-sex {
+      position: absolute;
+      margin-top: -2.7em;
+      width: 100%;
+      margin-left: 13%;
+      .radio-sex-2 {
+        margin-left: 5%;
+      }
+    }
+    .title-birthday {
+      margin-left: 15%;
+      margin-top: 7%;
+    }
+    .choose-date {
+      position: absolute;
+      margin-top: -4%;
+      margin-left: 13%;
+    }
+    .div-button-signup {
+      width: 100%;
+      text-align: center;
+      margin-top: 2%;
+    }
+    .title-login-if-is-user {
+      margin-top: 4%;
+      margin-left: 20%;
+    }
+  }
+}

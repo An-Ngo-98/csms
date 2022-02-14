@@ -1,0 +1,229 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Add/Edit Event</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="onCancel()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Start date</label>
+              <app-date-picker [setDate]="promotion.startTime" [required]="true" [minDate]="currentDate"
+                (selectedDateEmit)="promotion.setStartDate = $event">
+              </app-date-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Start time</label>
+              <app-time-picker [meridian]="false" (selectedTimeEmit)="promotion.setStartTime = $event"
+                [disabled]="!promotion.startTime" [setTime]="convertStringToTime(promotion.startTime)">
+              </app-time-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>End date</label>
+              <app-date-picker [placeholder]="'No limit'" [setDate]="promotion.endTime" [minDate]="promotion.startTime"
+                (selectedDateEmit)="promotion.setEndDate = $event"> </app-date-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>End time</label>
+              <app-time-picker [meridian]="false" [disabled]="!promotion.endTime"
+                (selectedTimeEmit)="promotion.setEndTime = $event" [setTime]="convertStringToTime(promotion.endTime)">
+              </app-time-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Start time of the day</label>
+              <app-time-picker [setTime]="promotion.startTimeInDate" [meridian]="false" [placeholder]="'No limit'"
+                [showClearButton]="true" (selectedTimeEmit)="promotion.startTimeInDate = $event"></app-time-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>End time of the day</label>
+              <app-time-picker [setTime]="promotion.endTimeInDate" [meridian]="false" [placeholder]="'No limit'"
+                [showClearButton]="true" (selectedTimeEmit)="promotion.endTimeInDate = $event"></app-time-picker>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Code type</label>
+              <app-dropdown [listData]="listCodeType" [selectedItemId]="promotion.eventTypeId?.toString()" [required]="true"
+                (selectedItemEmit)="onSetEventType($event.key)">
+              </app-dropdown>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Discount percent</label>
+              <div class="input-group">
+                <input type="number" class="form-control"
+                  [class.border-required]="error && promotion.eventTypeId !== 1 && (!promotion.discountPercent || promotion.discountPercent <= 0 || promotion.discountPercent > 100)"
+                  [disabled]="promotion.eventTypeId === 1" [(ngModel)]="promotion.discountPercent">
+                <div class="input-group-append">
+                  <span class="input-group-text pl-2" [class.disabled]="promotion.eventTypeId === 1"
+                    [class.border-required]="error && promotion.eventTypeId !== 1 && (!promotion.discountPercent || promotion.discountPercent <= 0 || promotion.discountPercent > 100)">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Quantity limit</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="No limit" [(ngModel)]="promotion.quantityLimit">
+                <div class="input-group-append">
+                  <span class="input-group-text">times</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Limit the number of uses</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="No limit" [(ngModel)]="promotion.accountLimit">
+                <div class="input-group-append">
+                  <span class="input-group-text">times</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Max discount price</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="No limit" [(ngModel)]="promotion.maxDiscount">
+                <div class="input-group-append">
+                  <span class="input-group-text">VND</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Min total invoice</label>
+              <div class="input-group">
+                <input type="number" class="form-control" placeholder="No limit" [(ngModel)]="promotion.minTotalInvoice">
+                <div class="input-group-append">
+                  <span class="input-group-text">VND</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-9 pl-1">
+            <div class="form-group">
+              <label>Title</label>
+              <input type="text" class="form-control" [(ngModel)]="promotion.title"
+                [class.border-required]="error && !promotion.title">
+            </div>
+          </div>
+
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label class="pl-2">
+                <app-checkbox [text]="'Use event code'" [checked]="promotion.code" (checkedCallback)="onUseCode($event)">
+                </app-checkbox>
+              </label>
+              <input type="text" disabled class="form-control" [(ngModel)]="promotion.code">
+            </div>
+          </div>
+
+          <div class="col-md-5 pl-1">
+            <div class="form-group">
+              <label>Applied devices</label>
+              <br>
+              <ng-template ngFor let-item [ngForOf]="listDevice" let-i="index">
+                <app-checkbox [text]="item.title" [checked]="isExistDevice(item.id)"
+                  (checkedCallback)="onCheckDevice(item.id, $event)">
+                </app-checkbox>
+                <span class="pr-5"></span>
+              </ng-template>
+
+              <div class="mt-4">
+                <app-checkbox [text]="'Use all products'" [checked]="promotion.appliedAllProducts"
+                  (checkedCallback)="onUseAllProducts($event)"></app-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-7 pl-1">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea type="text" class="form-control textarea" placeholder="Description"
+                [class.border-required]="error && !promotion.description" [(ngModel)]="promotion.description"></textarea>
+            </div>
+          </div>
+
+          <div *ngIf="!promotion.appliedAllProducts" class="col-md-5 pl-1">
+            <div class="form-group">
+              <label>Applied categories</label>
+              <tag-input [(ngModel)]="listCategorySelected" [onlyFromAutocomplete]="true" [theme]="'minimal'"
+                class="form-control">
+                <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'name'"
+                  [keepOpen]="false" [identifyBy]="'id'" [autocompleteItems]="listCategories">
+                  <ng-template let-item="item" let-index="index">
+                    {{ item.name }}
+                  </ng-template>
+                </tag-input-dropdown>
+              </tag-input>
+            </div>
+          </div>
+
+          <div *ngIf="!promotion.appliedAllProducts" class="col-md-7 pl-1">
+            <div class="form-group">
+              <label>Applied products</label>
+              <tag-input [(ngModel)]="listProductSelected" [onlyFromAutocomplete]="true" [theme]="'minimal'"
+                class="form-control">
+                <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'name'"
+                  [keepOpen]="false" [identifyBy]="'id'" [autocompleteItems]="listProducts">
+                  <ng-template let-item="item" let-index="index">
+                    {{ item.name }}
+                  </ng-template>
+                </tag-input-dropdown>
+              </tag-input>
+            </div>
+          </div>
+
+          <span *ngIf="error" class="text-danger pl-2">{{errorMessage}}</span>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <ui-switch color="#6bd098" defaultBgColor="#ef8157" class="d-inline-block pt-3 mb-0"
+              ngbTooltip="{{promotion.enabled ? 'Enabled' : 'Disabled'}}" [(ngModel)]="promotion.enabled">
+            </ui-switch>
+            <span class="pl-3 mt-4 position-absolute">{{promotion.enabled ? 'Enabled' : 'Disabled'}}</span>
+            <button class="btn float-right " (click)="onCancel()">
+              <span>Cancel</span>
+            </button>
+            <button [disabled]="loading" class="btn btn-primary float-right " (click)="onSave()">
+              <span *ngIf="!loading">Save</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

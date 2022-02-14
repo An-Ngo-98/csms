@@ -1,0 +1,14 @@
+<div ngbDropdown title="{{defaultValue ? defaultValue : showItem(selectedItem)}}">
+  <a class="btn btn-secondary m-0 w-100 custom-dropdown bg-white border-1-solid-grey" id="dropdownBasic2"
+    [class.disabled]="disabled" ngbDropdownToggle>{{defaultValue ? defaultValue : selectedItem?.value}}</a>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+    <ng-template ngFor let-item [ngForOf]="listData" let-i="index">
+      <div *ngIf="item.separateLine && index !== 0" class="dropdown-divider"></div>
+      <button ngbDropdownItem (click)="selectItem(item)" [disabled]="!item.enabled">
+        <i *ngIf="item.icon" class="{{item.icon}} {{item.extendClass}} mr-1"></i>
+        {{showItem(item)}}
+      </button>
+      <div *ngIf="item.separateLine && index !== listData.length - 1" class="dropdown-divider"></div>
+    </ng-template>
+  </div>
+</div>

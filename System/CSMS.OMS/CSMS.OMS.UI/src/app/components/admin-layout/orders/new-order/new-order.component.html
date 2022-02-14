@@ -1,0 +1,46 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">New Order</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+
+          <div class="col-8">
+            <div class="row">
+              <div *ngFor="let prod of products" class="col-3 text-center cursor-pointer pb-3"
+                (click)="addProduct(prod)">
+                <img [src]="getProductPhotoUrl(prod.avatarId)">
+                <span class="pt-1">{{prod.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mx-2 mt-3 mb-4" style="min-height: 130px;">
+              <div *ngFor="let prod of order.orderDetails" class="row mb-2 p-0">
+                <div class="col-6">{{prod.productName}}</div>
+                <div class="col-2">{{prod.quantity}}</div>
+                <div class="col-4 text-right text-danger">{{formatCurrency(prod.price)}}</div>
+              </div>
+            </div>
+            <div class="row mx-2 p-0 pt-2 pb-2 border-top">
+              <div class="col-12 p-0">
+                <span>Total </span>
+                <h5 class="text-danger float-right">{{formatCurrency(order.total)}}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <button [disabled]="loading" class="btn btn-primary float-right " (click)="onAddNewInvoice()">
+              <span *ngIf="!loading">Save</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

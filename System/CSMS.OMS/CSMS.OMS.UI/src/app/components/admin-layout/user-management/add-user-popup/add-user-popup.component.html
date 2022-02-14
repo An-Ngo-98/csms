@@ -1,0 +1,129 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">+ Add new {{isEmployee ? 'employee' : 'customer'}}</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+          <div class="col-md-4 pl-1 card-user">
+            <div class="avatar-profile">
+              <img [ngClass]="avatarUrl ? 'd-block' : 'd-none'" class="avatar border-gray mx-auto mb-3"
+                src="{{avatarUrl}}">
+              <input class="d-none" #file type="file" accept="image/*" (change)="onSelectAvatar(file.files)">
+              <div class="overlay overlay-avatar mx-auto" [ngClass]="{'position-relative opa-08': !avatarUrl}"
+                (click)="file.click()">
+                <i class="fa fa-edit fa-2x avatar-text"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Username</label>
+                  <input [class.border-required]="error && !user.userName" type="text" class="form-control"
+                    placeholder="Username" [(ngModel)]="user.userName">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Password</label>
+                  <input [class.border-required]="error && !user.password" type="password" class="form-control"
+                    placeholder="Default password" [(ngModel)]="user.password">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="user.phoneNumber">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" placeholder="Email" [(ngModel)]="user.email">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Firstname</label>
+              <input [class.border-required]="error && !user.firstName" type="text" class="form-control"
+                placeholder="First name" [(ngModel)]="user.firstName">
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Middle Name</label>
+              <input type="text" class="form-control" placeholder="Middle name" [(ngModel)]="user.middleName">
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Last Name</label>
+              <input [class.border-required]="error && !user.lastName" type="text" class="form-control"
+                placeholder="Last name" [(ngModel)]="user.lastName">
+            </div>
+          </div>
+          <div *ngIf="isEmployee" class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Employee Code</label>
+              <input type="text" class="form-control" placeholder="Employee Code" [(ngModel)]="user.userCode">
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Citizen ID</label>
+              <input type="text" class="form-control" placeholder="Citizen ID" [(ngModel)]="user.citizenId">
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Birthday</label>
+              <app-date-picker [setDate]="user.birthday" (selectedDateEmit)="user.birthday = $event">
+              </app-date-picker>
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Gender</label>
+              <app-dropdown [listData]="listGender" [selectedItemId]="user.gender" [allowNoSelect]="true"
+                (selectedItemEmit)="user.gender = $event.key"></app-dropdown>
+            </div>
+          </div>
+          <div *ngIf="isEmployee" class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Branch</label>
+              <app-dropdown [listData]="listBranch" [selectedItemId]="user.branchId" [allowNoSelect]="true"
+                (selectedItemEmit)="user.branchId = $event.key"></app-dropdown>
+            </div>
+          </div>
+          <div *ngIf="isEmployee" class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Role</label>
+              <app-dropdown [listData]="listRole" [selectedItemId]="user.roleId" [allowNoSelect]="true"
+                (selectedItemEmit)="user.roleId = $event.key"></app-dropdown>
+            </div>
+          </div>
+          <div *ngIf="isEmployee" class="col-md-12 pl-1">
+            <div class="form-group">
+              <label>Employee Salary</label>
+              <input type="text" class="form-control" placeholder="Employee Salary" [(ngModel)]="user.salary">
+            </div>
+          </div>
+          <div class="w-100 pl-2 pr-3 mt-2 mb-0">
+            <span *ngIf="error" class="text-danger">{{errorMessage}}</span>
+            <button [disabled]="loading" class="btn btn-primary float-right " (click)="onSave()">
+              <span *ngIf="!loading">Save</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

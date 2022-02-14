@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DryIoc.dll" Version="2.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CdnApi.Business\CdnApi.Business.csproj" />
+    <ProjectReference Include="..\CdnApi.Data\CdnApi.Data.csproj" />
+  </ItemGroup>
+
+</Project>

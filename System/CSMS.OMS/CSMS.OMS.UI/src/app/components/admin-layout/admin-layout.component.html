@@ -1,0 +1,13 @@
+<div class="wrapper">
+    <div *ngIf="isShowSideBar()" class="sidebar" data-color="white" data-active-color="danger">
+        <app-sidebar-cmp></app-sidebar-cmp>
+    </div>
+    <div class="main-panel" [class.w-100]="!isShowSideBar()">
+        <app-navbar-cmp></app-navbar-cmp>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer-cmp></app-footer-cmp>
+    </div>
+</div>
+<app-fixedplugin-cmp></app-fixedplugin-cmp>

@@ -1,0 +1,193 @@
+.button-login {
+  cursor: pointer;
+  width: 155px;
+  height: 43px;
+  color: rgb(51, 51, 51);
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0px;
+  background: rgb(253, 210, 47);
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  border-radius: 4px;
+  outline: none;
+}
+.container {
+  .row {
+    .span-billing-information {
+      margin-top: 3%;
+      font-size: 20px;
+      margin-left: 31%;
+    }
+    .span-process-payment {
+      border: 1px solid #ffe9e9;
+      background-color: #039be5;
+      margin-left: 36%;
+      font-size: 20px;
+      cursor: pointer;
+      color: #fff;
+      padding: 5px;
+    }
+  }
+  .row-1 {
+    margin-top: 2%;
+    mat-form-field {
+      width: 50%;
+      margin-left: 25%;
+    }
+  }
+}
+.container {
+}
+
+.all-white {
+  background-color: white;
+  margin-top: 1%;
+  height: fit-content;
+  .item-food-3 {
+    border-bottom: 1px solid #ffe9e9;
+    margin-top: 2%;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 1%;
+  }
+  .food-3 {
+    list-style-type: none;
+    margin-left: -25%;
+    margin-top: 5%;
+    .icon-right {
+      float: right;
+    }
+    .li-food-3 {
+      margin-top: 9%;
+      margin-bottom: 2%;
+    }
+  }
+  .icon-place {
+    font-size: 25px;
+    margin-left: 1.2em;
+    margin-top: 0.27em;
+    color: #0082FF;
+  }
+  .text-ship {
+    font-size: 25px;
+  }
+  .icon-food {
+    font-size: 25px;
+    margin-left: 1.2em;
+    margin-top: 0.27em;
+    color: #0082FF;
+  }
+  .text-order-product {
+    margin-left: 0.2em;
+    font-size: 25px;
+  }
+  .icon-delivery {
+    font-size: 25px;
+    margin-left: 1.2em;
+    margin-top: 0.29em;
+    color: #0082FF;
+  }
+  .text-delivery {
+    margin-left: 0.2em;
+    font-size: 25px;
+  }
+  .icon-voucher {
+    font-size: 25px;
+    margin-left: 0.6em;
+    margin-top: 0.27em;
+    color: #0082FF;
+  }
+  .text-voucher {
+    margin-top: -11%;
+    margin-left: 13%;
+    font-size: 25px;
+  }
+  .icon-voucher-1 {
+    font-size: 25px;
+    margin-left: 0.6em;
+    margin-top: 0.27em;
+    color: #0082FF;
+  }
+  .text-voucher-1 {
+    margin-top: -1.54em;
+    margin-left: 1.8em;
+    font-size: 25px;
+  }
+  .icon-payment {
+    font-size: 25px;
+    margin-left: 0.6em;
+    margin-top: 0.23em;
+    color: #0082FF;
+  }
+  .text-payment {
+    margin-top: -1.5em;
+    margin-left: 5%;
+    font-size: 25px;
+  }
+}
+
+.food-4 {
+  border: 1px solid #ffe9e9;
+  margin-top: 1.6em;
+  background-color: white;
+  margin-left: 2%;
+  .ul-food-4 {
+    margin-top: 5%;
+    border: 1px solid #ffe9e9;
+  }
+}
+
+.group-food-one {
+  border: 1px solid #d6d6d6;
+  // margin-bottom: -2%;
+  .row-food-one {
+    margin-left: 1%;
+    .food-day {
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .food-item {
+      margin-left: 2%;
+    }
+    .col-food-search {
+      margin-top: 2%;
+    }
+  }
+  .right-5 {
+    margin-left: 79%;
+    margin-bottom: 3%;
+    margin-top: 1%;
+    .right-5-1 {
+      background-color: #f57224;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 9.5px 45.5px;
+      color: white;
+      // margin-left: 3%;
+    }
+  }
+  .row-food-two {
+    margin-top: 2%;
+  }
+}
+
+//common
+.info-food {
+  list-style-type: none;
+  .info-food-one {
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-bottom: -1%;
+    text-align: center;
+  }
+  .info-food-two {
+    font-size: 12px;
+    margin-left: 3%;
+    text-align: center;
+  }
+}

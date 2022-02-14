@@ -1,0 +1,86 @@
+.button-login {
+  width: 35%;
+  margin-left: 34.5%;
+  // width: 155px;
+  height: 40px;
+  // margin-top: 10px;
+  color: rgb(51, 51, 51);
+  font-size: 17px;
+  font-weight: 500;
+  padding: 0px;
+  background: rgb(253, 210, 47);
+  border-width: 0px;
+  border-style: initial;
+  border-color: initial;
+  border-image: initial;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+.container {
+  .row {
+    .login-title {
+      text-align: center;
+      margin-left: 25%;
+      font-weight: 900;
+      font-size: 24px;
+    }
+    .input-1 {
+      width: 100%;
+      margin-left: 12%;
+    }
+    .input-2 {
+      width: 100%;
+      margin-left: 12%;
+    }
+    .checkbox-remember {
+      position: absolute;
+      margin-left: 3.6em;
+      margin-top: 0.1em;
+    }
+    .title-1 {
+      width: 100%;
+      margin-left: 65%;
+    }
+    .title-2 {
+      position: absolute;
+      margin-left: 24%;
+      margin-top: -3%;
+    }
+    .div-button-login {
+      width: 100%;
+      margin-top: 2%;
+    }
+    .item_fb {
+      background-color: #187caa;
+      color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    width: 56%;
+    position: relative;
+    padding: 7px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 23%;
+    margin-top: 2%;
+    }
+    .item_gg {
+      background-color: #ff5252;
+      color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    width: 56%;
+    position: relative;
+    padding: 7px 0;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 23%;
+    margin-top: 2%;
+    }
+    .title-3 {
+      margin-left: 18%;
+      margin-top: 5%;
+    }
+  }
+}
+

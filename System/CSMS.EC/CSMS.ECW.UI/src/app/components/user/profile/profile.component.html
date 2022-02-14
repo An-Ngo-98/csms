@@ -1,0 +1,85 @@
+<div class="col-md-12">
+    <div class="row info-user">
+        <div class="col-md-8">
+            <form style="width: 100%; margin-left: 4%; margin-top: 3%;" name="profileForm" [formGroup]="profileForm">
+                <div style="width: 100%;">
+                    <mat-label>First name</mat-label>
+                    <mat-form-field class="info-edit-1" appearance="outline">
+                        <input matInput formControlName="firstName">
+                        <mat-error *ngIf="profileFormErrors.firstName.required">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%;">
+                    <mat-label>Middle name</mat-label>
+                    <mat-form-field class="info-edit-6" appearance="outline">
+                        <input matInput formControlName="middleName">
+                        <mat-error *ngIf="profileFormErrors.middleName.required">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%;">
+                    <mat-label>Last name</mat-label>
+                    <mat-form-field class="info-edit-7" appearance="outline">
+                        <input matInput formControlName="lastName">
+                        <mat-error *ngIf="profileFormErrors.lastName.required">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%;">
+                    <mat-label>Phonenumber</mat-label>
+                    <mat-form-field class="info-edit-2" appearance="outline">
+                        <input matInput formControlName="phoneNumber">
+                        <mat-error *ngIf="profileFormErrors.phoneNumber.required">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%;">
+                    <mat-label>Email</mat-label>
+                    <mat-form-field class="info-edit-3" appearance="outline">
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="profileFormErrors.email.required">
+                            First name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 100%;">
+                    <p class="title-sex">Gender</p>
+                    <mat-radio-group style="width: 100%;" class="info-edit-4" aria-label="Select an option" formControlName="gender">
+                        <mat-radio-button value="1">Male</mat-radio-button>
+                        <mat-radio-button class="radio-sex-2" value="2">Female</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div style="width: 100%; margin-top: 6%;">
+                    <p class="title-birthday">Birthday</p>
+                    <mat-form-field class="info-edit-5" appearance="outline">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="birthday">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 div-img-user">
+            <div class="avatar-profile">
+                <img class="avatar border-gray" src="{{avatarUrl}}">
+                <input class="d-none" #file type="file" accept="image/*" (change)="updateImage(file.files)">
+                <div class="overlay overlay-avatar" (click)="file.click()">
+                  <i class="fa fa-edit fa-2x avatar-text"></i>
+                </div>
+              </div>
+        </div>
+
+        <div class="div-button-update">
+            <button class="button-update" color="accent" (click)="updateProfile()" mat-flat-button [disabled]="!profileForm.dirty || profileForm.invalid">
+                <mat-spinner style="margin:0 auto;" [strokeWidth]=3 [diameter]=30 *ngIf="(loadingProfile$ | async)?.updateEntity"></mat-spinner>
+                <span *ngIf="!(loadingProfile$ | async)?.updateEntity">Update</span>
+            </button>
+        </div>
+    </div>
+</div>

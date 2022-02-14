@@ -1,0 +1,19 @@
+<!-- <div class="modal"> -->
+<div class="modal-dialog {{modalSize}}" role="document">
+  <div class="modal-content">
+    <div class="modal-header" *ngIf="title">
+      <span class="modal-title font-weight-bold">{{title}}</span>
+    </div>
+    <div class="model-body">
+      <div class="text-center m-2">{{message}}</div>
+      <div class="text-center">
+        <button class="btn btn-success ml-2" id="md-confirm-btn" (click)="onConfirm(true)"
+          *ngIf="labelButtonConfirmYes">{{labelButtonConfirmYes}}</button>
+        <button class="btn btn-danger ml-1" id="md-confirm-btn" (click)="onConfirm(false)"
+          *ngIf="labelButtonConfirmNo">{{labelButtonConfirmNo}}</button>
+        <button class="btn ml-2" (click)="onCancel()" *ngIf="labelButtonCancel">{{labelButtonCancel}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

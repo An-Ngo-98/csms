@@ -1,0 +1,76 @@
+<ngx-loading [show]="(loading$ | async)?.loadingEntities"></ngx-loading>
+<div class="col-md-12">
+  <div class="row info-user">
+    <form style="width: 100%;">
+      <div class="new-address" (click)="openModalCreate()">
+        <p class="new-address-text" style="cursor: pointer;"><i class="fas fa-plus"></i> Add address </p>
+      </div>
+      <!-- <div style="width: 100%; margin-top: 2%; margin-left: 5%;">
+              <mat-label>Old Password</mat-label>
+              <mat-form-field class="info-edit-1" appearance="outline">
+                  <input matInput>
+              </mat-form-field>
+          </div> -->
+
+
+      <div class="col-md-12 table-order">
+        <div class="mat-elevation-z8 box-shadow-off" style="margin-left: 2%;">
+          <div class="example-container">
+            <table mat-table [dataSource]="dataSource">
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="receiver">
+                <th mat-header-cell *matHeaderCellDef> Receiver </th>
+                <td mat-cell *matCellDef="let element"> {{element.receiver}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="phonenumber">
+                <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="country">
+                <th mat-header-cell *matHeaderCellDef> Country </th>
+                <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="province">
+                <th mat-header-cell *matHeaderCellDef> Province </th>
+                <td mat-cell *matCellDef="let element"> {{element.province}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="district">
+                <th mat-header-cell *matHeaderCellDef> District </th>
+                <td mat-cell *matCellDef="let element"> {{element.district}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="ward">
+                <th mat-header-cell *matHeaderCellDef> Ward </th>
+                <td mat-cell *matCellDef="let element"> {{element.ward}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-icon style="cursor: pointer;" (click)="openModalCreate(element)">edit</mat-icon>
+                  <mat-icon style="cursor: pointer;" (click)="deleteAddress(element)">delete</mat-icon>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+</div>

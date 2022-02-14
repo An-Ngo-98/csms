@@ -1,0 +1,108 @@
+<div class="row pt-3">
+  <div class="col-md-5">
+    <div class="row mb-3">
+      <h4 class="w-100 text-center mt-3">Category detail</h4>
+      <div class="col-4">
+        <div class="col-md-4 product-avatar center-row pl-0">
+          <img 
+            [src]="newPhotoUrl ? newPhotoUrl : getPhotoUrl(catSelected.isNewPhoto)"
+            alt="Category avatar">
+          <input class="d-none" #fileAvatar type="file" accept="image/*" (change)="onUploadAvatar(fileAvatar.files)">
+          <div class="overlay" (click)="fileAvatar.click()">
+            <i class="fa fa-edit fa-2x avatar-text"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 pr-0 pl-0 row">
+        <div class="col-12 pt-2">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-bookmark"></i>
+                </div>
+              </div>
+              <input #inputProductName [(ngModel)]="catSelected.name" (keyup.enter)="onSave()" type="text"
+                class="form-control input-cat-name" placeholder="Category name">
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pt-0 pb-3">
+          <ui-switch [(ngModel)]="catSelected.enabled" size="small" color="#6bd098" defaultBgColor="#ef8157"
+            class="d-inline-block" ngbTooltip="{{catSelected.enabled ? 'Enabled' : 'Disabled'}}"></ui-switch>
+          <span [ngClass]="catSelected.enabled ? 'text-success' : 'text-danger'" class="pl-3 mt-1 position-absolute">
+            {{catSelected.enabled ? 'Enabled' : 'Disabled'}}</span>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <span *ngIf="error && !catSelected.name" class="text-danger">{{errorMessage}}</span>
+        <div class="d-inline-flex w-100">
+          <button [disabled]="loading || !catSelected.name" (click)="onSave()" class="btn btn-success w-50">
+            <span *ngIf="!loading">{{catSelected.id ? 'Update' : 'Add'}}</span>
+            <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+            </app-loading-spinner>
+          </button>
+          <button class="btn w-50" (click)="onCancel()">{{catSelected.id ? 'Cancel' : 'Reset'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <app-loading-spinner *ngIf="!listCategory"></app-loading-spinner>
+
+    <div *ngIf="listCategory" class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onClickAddCategory()">
+        + Add
+      </button>
+    </div>
+
+    <div *ngIf="listCategory" class="cat-manag fixed-wrapper">
+      <div class="fixed-scroller">
+        <table class="fixed-table w-100">
+          <thead>
+            <tr>
+              <th>Category name</th>
+              <th>Total products</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cat of listCategory?.items; let i = index;" class="tr-click">
+              <td (click)="onEdit(cat)">{{cat.name}}</td>
+              <ng-template #tipContent>
+                <span *ngIf="!cat.products || cat.products.length === 0">N/A</span>
+                <span *ngIf="cat.products">
+                  <span *ngFor="let item of cat.products">{{item}}<br></span>
+                </span>
+              </ng-template>
+              <td [ngbPopover]="tipContent" triggers="mouseenter:mouseleave" container="body" (click)="onEdit(cat)"
+                class="cursor-pointer">
+                {{cat.products.length}}
+              </td>
+              <td (click)="onEdit(cat)" [ngClass]="cat.enabled ? 'text-success' : 'text-danger'">
+                {{cat.enabled ? 'Enabled' : 'Disabled'}}
+              </td>
+              <td class="text-right">
+                <i class="fa fa-pencil text-primary cursor-pointer fa-lg" (click)="onEdit(cat)"></i>
+                <app-delete-confirm class="d-inline-block ml-2" (executeDelete)="onDelete(cat.id)"
+                  [message]="Message.CategoryManagement.DELETE_CATEGORY.replace('{0}', cat.name)">
+                </app-delete-confirm>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="loadingList && listCategory" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listCategory" [totalCount]="listCategory?.totalCount" [currentPageIndex]="page"
+      [listPageSize]="listPageSize" [pageSize]="pageSize" [savePageSize]="false"
+      (onPageChangeEvent)="getListCategory($event, pageSize)" (onPageSizeChangeEvent)="getListCategory(1, $event)">
+    </app-pagination>
+  </div>
+</div>

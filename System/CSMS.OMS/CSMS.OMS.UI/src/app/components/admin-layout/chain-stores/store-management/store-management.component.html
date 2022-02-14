@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-12">
+    <app-loading-spinner *ngIf="!listBranch"></app-loading-spinner>
+
+    <div *ngIf="listBranch" class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onClickAddEditStore()">
+        + Add
+      </button>
+    </div>
+
+    <div *ngIf="listBranch" class="fixed-wrapper">
+      <div class="row pt-3">
+        <div *ngFor="let branch of listBranch.items; let i = index;" class="col-sm-6 col-md-4 col-lg-3 min-wp-250 pb-3">
+          <div class="product-box">
+            <img class="card-img-top cursor-pointer" [src]="getPhotoUrl(branch.id, branch.isNewPhoto)"
+              alt="Branch avatar" />
+            <div class="card-body">
+              <h5 class="card-title mt-2">{{branch.name}}
+                <sup>
+                  <i [ngClass]="branch.enabled ? 'fa fa-check-circle text-success' : 'fa fa-times-circle text-danger'"
+                    ngbTooltip="{{branch.enabled ? 'Enabled' : 'Disabled'}}"></i>
+                </sup>
+              </h5>
+              <p class="card-text mt-3">{{branch.shortName}} - {{getOpenTime(branch)}}</p>
+              <p class="card-text">{{onGetAddress(branch)}}</p>
+              <div class="w-100">
+                <ui-switch [(ngModel)]="branch.enabled" color="#6bd098" defaultBgColor="#ef8157"
+                  class=" d-inline-block mt-3 mb-0" ngbTooltip="{{branch.enabled ? 'Enabled' : 'Disabled'}}"
+                  (change)="onChangeStatus(branch, $event)"></ui-switch>
+                <app-delete-confirm (executeDelete)="onDelete(branch.id)" class="float-right ml-1" [isRoundIcon]="true"
+                  [message]="Message.BranchManagement.DELETE_BRANCH.replace('{0}', branch.name)">
+                </app-delete-confirm>
+                <button (click)="onClickAddEditStore(branch, i)"
+                  class="btn btn-outline-primary btn-fab btn-icon btn-round float-right ml-1" ngbTooltip="Edit">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button (click)="onViewDetail(branch.id)"
+                  class="btn btn-outline-success btn-fab btn-icon btn-round float-right" ngbTooltip="Detail">
+                  <i class="fa fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loadingList && listBranch" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listBranch" [totalCount]="listBranch?.totalCount" [currentPageIndex]="page"
+      [listPageSize]="listPageSize" [pageSize]="pageSize" (onPageChangeEvent)="getlistBranch($event, pageSize)"
+      (onPageSizeChangeEvent)="getlistBranch(1, $event)">
+    </app-pagination>
+  </div>
+</div>

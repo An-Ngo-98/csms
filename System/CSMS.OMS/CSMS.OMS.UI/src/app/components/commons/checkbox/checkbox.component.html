@@ -1,0 +1,8 @@
+<span class="icon-label cursor-pointer fa-{{sizeText}} {{customClass}} pr-2" *ngIf="!textAfter && text != ''"
+  (click)="onClick()" [class.disabled]="disabled">{{text}}</span>
+<i class="fa fa-check-square text-info fa-{{size}} {{customClass}}" *ngIf="checked" (click)="onClick()"
+  [class.disabled]="disabled"></i>
+<i class="fa fa-square-o fa-{{size}} {{customClass}}" *ngIf="!checked" (click)="onClick()"
+  [class.disabled]="disabled"></i>
+<span class="icon-label cursor-pointer fa-{{sizeText}} {{customClass}} pl-2" *ngIf="textAfter && text != ''"
+  (click)="onClick()" [class.disabled]="disabled">{{text}}</span>

@@ -1,0 +1,15 @@
+.table-order {
+  margin-top: 1.5em;
+  box-shadow: none;
+  .box-shadow-off {
+    box-shadow: none;
+    .example-container {
+      height: 366px;
+      background: white;
+      overflow: auto;
+      table {
+        width: 100%;
+      }
+    }
+  }
+}

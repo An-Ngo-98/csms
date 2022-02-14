@@ -1,0 +1,46 @@
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Export Material</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <app-loading-spinner *ngIf="!listStore"></app-loading-spinner>
+      <section *ngIf="listStore">
+        <div class="col-md-5 p-0">
+          <app-dropdown [listData]="listStore" [selectedItemId]="storeIdSelected"
+            (selectedItemEmit)="onSelectStore($event.key)">
+          </app-dropdown>
+        </div>
+        <div *ngIf="exportListSelected" class="row pl-3 pt-3">
+          <div *ngFor="let mat of materials; let i = index" class="col-2 form-group py-2">
+            <div class="text-center pb-2">{{mat.materialName + ' (' + mat.unit + ')'}}</div>
+            <div class="d-inline-flex">
+              <button (click)="updateQuantity(-1, i)" class="btn btn-outline-primary btn-fab btn-icon btn-round m-0">
+                -
+              </button>
+              <input type="text" class="form-control text-center mx-2 my-0"
+                [(ngModel)]="exportListSelected[i].quantityUnit">
+              <button (click)="updateQuantity(1, i)" class="btn btn-outline-primary btn-fab btn-icon btn-round m-0">
+                +
+              </button>
+            </div>
+          </div>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <!-- <div class="col-md-5 d-inline-block p-0">
+              <app-dropdown [listData]="listStore" [selectedItemId]="storeIdSelected"
+                (selectedItemEmit)="onSelectStore($event.key)">
+              </app-dropdown>
+            </div> -->
+            <button class="btn btn-primary float-right" (click)="onExport()">
+              <span *ngIf="!loading">Export</span>
+              <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+            <button class="btn btn-success float-right" (click)="onSetDefault()">Set Default</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

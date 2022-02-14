@@ -1,2 +1,2 @@
-# csms
-Graduate thesis
+# CSMS
+Chain Stores Management System

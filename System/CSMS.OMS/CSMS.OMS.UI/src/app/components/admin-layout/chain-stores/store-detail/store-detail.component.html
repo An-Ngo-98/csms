@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <app-menu-tabs [tabs]="listTab" (callback)="selectedTab = $event.tabId"></app-menu-tabs>
+      <div class="card-body">
+        <app-store-information *ngIf="selectedTab === idTabs.StoreInformation"></app-store-information>
+        <app-store-warehouse *ngIf="selectedTab === idTabs.StoreWarehouse"></app-store-warehouse>
+        <app-store-employee *ngIf="selectedTab === idTabs.StoreEmployee"></app-store-employee>
+        <app-store-products-management *ngIf="selectedTab === idTabs.StoreProducts"></app-store-products-management>
+      </div>
+    </div>
+  </div>
+</div>

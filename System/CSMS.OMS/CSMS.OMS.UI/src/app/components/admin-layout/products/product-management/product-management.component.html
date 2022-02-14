@@ -1,0 +1,125 @@
+<nav class="breadcrumb pr-0">
+
+  <div class="row w-100 pl-2">
+    <div class="col-12 text-right pr-0">
+      <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onClickAddEditProduct(null)">
+        + Add
+      </button>
+      <!-- <button type="submit" disabled class="btn btn-primary btn-sm mt-0">Import</button>
+      <button type="submit" disabled class="btn btn-primary btn-sm mt-0" (click)="onExport()">Export</button> -->
+    </div>
+  </div>
+
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Search for</label>
+            <input class="form-control" placeholder="Id, Name, Email, Phone Number..." type="text"
+              [(ngModel)]="searchString" ngbTooltip="use &quot;,&quot; or &quot;;&quot; for multi result"
+              (keyup.enter)="getListProduct()">
+          </div>
+        </div>
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Category</label>
+            <app-dropdown [listData]="listCategory" [selectedItemId]="categorySelected"
+              (selectedItemEmit)="categorySelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Status</label>
+            <app-dropdown [listData]="listStatus" [selectedItemId]="statusSelected"
+              (selectedItemEmit)="statusSelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Sort By</label>
+            <app-dropdown [listData]="listSortField" [selectedItemId]="sortFieldSelected"
+              (selectedItemEmit)="sortFieldSelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getListProduct()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!listProduct"></app-loading-spinner>
+
+    <div *ngIf="listProduct" class="fixed-wrapper">
+      <div class="row pt-3">
+        <div *ngFor="let prod of listProduct.items; let i = index;" class="col-sm-6 col-md-4 col-lg-3 min-wp-250 pb-3">
+          <div class="product-box">
+            <img class="card-img-top cursor-pointer" [src]="getProductPhotoUrl(prod.avatarId, prod.isNewAvatar)"
+              alt="Product avatar" />
+            <div class="card-body">
+              <h4 class="card-title mt-2">{{prod.name}}
+                <sup>
+                  <i [ngClass]="prod.enabled ? 'fa fa-check-circle text-success' : 'fa fa-times-circle text-danger'"
+                    ngbTooltip="{{prod.enabled ? 'Enabled' : 'Disabled'}}"></i>
+                </sup>
+              </h4>
+              <h5 class="text-danger">{{convertCurrency(prod.price)}}</h5>
+              <p class="card-text product-des">{{prod.shortDescription}}</p>
+              <div class="row">
+                <div class="col-5">
+                  <div class="text-center d-inline-block">
+                    <h4 class="text-danger" [class.m-0]="prod.rate">{{prod.rate ? prod.rate + '/5' : ''}}</h4>
+                    <ng-template #t let-fill="fill">
+                      <span class="star" [class.full]="fill === 100">
+                        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                      </span>
+                    </ng-template>
+                    <ngb-rating [(rate)]="prod.rate" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                    <br>
+                    <span *ngIf="prod.totalVote > 1">({{prod.totalVote}} votes)</span>
+                    <span *ngIf="prod.totalVote <= 1">({{prod.totalVote}} vote)</span>
+                  </div>
+                </div>
+                <div class="col-7 mt-1">
+                  <div class="row">
+                    <div class="col-12">
+                      <ui-switch [(ngModel)]="prod.enabled" color="#6bd098" defaultBgColor="#ef8157"
+                        class=" d-inline-block float-right mb-0" ngbTooltip="{{prod.enabled ? 'Enabled' : 'Disabled'}}"
+                        (change)="onChangeStatus(prod, $event)"></ui-switch>
+                    </div>
+                  </div>
+
+                  <div class="mt-2 mb-0 float-right">
+                    <button (click)="onClickAddEditProduct(prod, i)"
+                      class="btn btn-outline-primary btn-fab btn-icon btn-round" ngbTooltip="Edit">
+                      <i class="fa fa-edit"></i>
+                    </button>
+                    <app-delete-confirm (executeDelete)="onClickDeleteProduct(prod.id)" class="ml-1"
+                      [isRoundIcon]="true"
+                      [message]="Message.ProductManagement.DELETE_PRODUCT.replace('{0}', prod.name)">
+                    </app-delete-confirm>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loading && listProduct" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listProduct" [totalCount]="listProduct?.totalCount" [currentPageIndex]="page"
+      [listPageSize]="listPageSize" [pageSize]="pageSize" [savePageSize]="false"
+      (onPageChangeEvent)="getListProduct($event, pageSize)" (onPageSizeChangeEvent)="getListProduct(1, $event)">
+    </app-pagination>
+  </div>
+</div>

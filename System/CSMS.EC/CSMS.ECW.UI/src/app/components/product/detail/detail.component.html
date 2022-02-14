@@ -1,0 +1,176 @@
+<div style="background-color: #eee;">
+    <div>
+        <app-navbar [loading]="(loadingProduct$ | async).loadingEntities"></app-navbar>
+    </div>
+    <div class="container">
+        <div class="row row-food-detail-1">
+            <div class="col-md-4 div-img-food-1">
+                <img class="img-food-1" src="{{productImgUrl}}">
+            </div>
+            <div class="col-md-3">
+                <form action="" name="cartForm" [formGroup]="cartForm">
+                    <p class="title-1">{{productDetail && productDetail.name}}</p>
+                    <div class="title-2">
+                        <p>Price: </p>
+                        <span class="price-product"> {{productDetail && productDetail.price}} </span>
+                    </div>
+                    <div ng-repeat="item in PC.Items">
+                        <p class="count-order">Amount: </p>
+                        <input formControlName="count" id="countProduct" class="input-count-order" min="1" max="50"
+                            ng-model="item.Quantity" type="number" [value]="1" name="Quantity" />
+                    </div>
+                    <div class="title-4">
+                        <button style="cursor: pointer;" class="btn-order" (click)="addCartLocalStorage()">Buy now</button>
+                        <button style="cursor: pointer;" class="btn-order" (click)="addBuyLater()">Buy later</button>
+                        <mat-icon style="cursor: pointer; position: absolute; font-size: 2.5em; margin-top: 1%;" [style.color]="isLovedProduct() ? 'red' : 'grey'"
+                        (click)="addDeleteLoveProduct()">favorite</mat-icon>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5 detail-product-1">
+                <p style="margin-bottom: 1%;">Details: </p>
+                <p class="description">{{productDetail && productDetail.description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 all-white">
+                <div class="item-food-3">
+                    Discovery
+                </div>
+                <ul class="food-3">
+                    <li class="li-food-3" (click)="getProductFromCategory3(0)">
+                        <label>All</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3" *ngFor="let item of catogeries && catogeries.items"
+                        (click)="getProductFromCategory3(item.id)">
+                        <label>{{item.name}}</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3">
+                        <label>Promotion</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                    <li class="li-food-3">
+                        <label>Comment</label>
+                        <i class="fas fa-angle-right icon-right"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10" *ngIf="productOfCategory3">
+                <div class="row food-4">
+                    <div class="col-md-3" *ngFor="let item of productOfCategory3">
+                        <ul class="ul-food-4" style="padding-left: 0%;">
+                            <li class="info-food">
+                                <img style="width: 100%; height: 140px; cursor: pointer; outline: none;" routerLink='/product/detail/{{item.id}}' (click)="getDetailProduct(item.id)"
+                                    src="{{getImg(item.avatarId)}}">
+                                <p class="info-food-one">{{item.name}}</p>
+                                <p class="info-food-two">{{item.description}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <app-show-product-more [products]="productOfCategory3"></app-show-product-more> -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" style="border-bottom: 1px solid rgb(247, 247, 247); background-color: white; margin-top: 2%;">
+            <div class="col-md-12" style="text-align: center; margin-top: 2%;">
+                <p style="font-size: 25px; font-weight: 600;">PRODUCTS REVIEW</p>
+            </div>
+        </div>
+        <div class="row row-food-detail-1" style="border-bottom: 1px solid rgb(247, 247, 247); margin-top: 0%;">
+            <div class="col-md-4 col-vote-1">
+                <p style="margin-bottom: 0%;">Average rating</p>
+                <p style="margin-bottom: 0%;" *ngIf="currentRate !== 'Infinity' && currentRate !== 'NaN'">
+                    {{currentRate}}/5</p>
+                <p style="margin-bottom: 0%;" *ngIf="currentRate === 'Infinity' || currentRate === 'NaN'">{{0}}/5</p>
+                <span>
+                    <ng-template #t let-fill="fill">
+                        <span class="star" [class.full]="fill === 100">
+                            <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                        </span>
+                    </ng-template>
+                    <ngb-rating *ngIf="currentRate === 'Infinity'" [(rate)]="currentRateFail" [starTemplate]="t"
+                        [readonly]="true" [max]="5"></ngb-rating>
+                    <ngb-rating *ngIf="currentRate !== 'Infinity'" [(rate)]="currentRate" [starTemplate]="t"
+                        [readonly]="true" [max]="5"></ngb-rating>
+                </span>
+                <p>({{productReviews && productReviews.totalCount}} reviews)</p>
+            </div>
+            <div class="col-md-4 col-vote-2">
+                <p class="rate-product">
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i style="margin-left: 2%;">{{percentOfScore5 ? percentOfScore5 : 0}}%</i>
+                </p>
+                <p class="rate-product">
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i style="margin-left: 2%;">{{percentOfScore4 ? percentOfScore4 : 0}}%</i>
+                </p>
+                <p class="rate-product">
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i style="margin-left: 2%;">{{percentOfScore3 ? percentOfScore3 : 0}}%</i>
+                </p>
+                <p class="rate-product">
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i style="margin-left: 2%;">{{percentOfScore2 ? percentOfScore2 : 0}}%</i>
+                </p>
+                <p class="rate-product">
+                    <i class="fas fa-star icon-star checked"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i class="fas fa-star icon-star"></i>
+                    <i style="margin-left: 2%;">{{percentOfScore1 ? percentOfScore1 : 0}}%</i>
+                </p>
+            </div>
+            <div class="col-md-4 col-vote-3">
+                <p style="margin-bottom: 0%;">Share product reviews</p>
+                <button class="button-vote" (click)="openModalWriteReview()">Write your review</button>
+            </div>
+        </div>
+        <div class="row" style="background-color: white;">
+            <div class="col-md-12" style="font-size: 17px; margin-top: 1%; border-bottom: 1px solid rgb(247, 247, 247);"
+                *ngFor="let productReview of producItemReviews">
+                <span style="margin-left: 2%; margin-bottom: 0%;">{{productReview.fullname}}</span>
+                <span style="margin-left: 1%;">{{productReview.votedDate|date: "short"}}</span>
+                <p class="rate-product" style="margin-left: 2%;">
+                    <ngb-rating [(rate)]="productReview.score" [max]="5">
+                        <ng-template let-fill="fill">
+                            <!-- <span class="star1" [class.filled]="fill === 100">&hearts;</span> -->
+                            <span class="star1" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                </p>
+                <p style="margin-left: 2%;">{{productReview.comment}}</p>
+            </div>
+        </div>
+        <app-pagination *ngIf="listReview" [totalCount]="listReview?.totalCount" [currentPageIndex]="page"
+            [listPageSize]="listPageSize" [pageSize]="pageSize" [savePageSize]="false"
+            (onPageChangeEvent)="getListProduct($event, pageSize)" (onPageSizeChangeEvent)="getListProduct(1, $event)">
+        </app-pagination>
+    </div>
+
+    <div>
+        <app-footer></app-footer>
+    </div>
+</div>

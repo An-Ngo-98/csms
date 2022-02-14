@@ -1,0 +1,70 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Month</label>
+            <app-dropdown [listData]="listMonth" [selectedItemId]="month"
+              (selectedItemEmit)="month = $event.key"></app-dropdown>
+          </div>
+        </div>
+
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Year</label>
+            <app-dropdown [listData]="listYear" [selectedItemId]="year"
+              (selectedItemEmit)="year = $event.key"></app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <button class="btn btn-primary m-0" (click)="getListBill()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <app-loading-spinner *ngIf="!bills"></app-loading-spinner>
+
+    <div *ngIf="bills?.length > 0" class="fixed-wrapper material-management">
+      <table class="fixed-table w-100">
+        <thead>
+          <tr>
+            <th>Bill Code</th>
+            <th>Bill Type</th>
+            <th>Partner</th>
+            <th>Total</th>
+            <th>Remark</th>
+            <th>Status</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bill of bills; let i = index;">
+            <td> {{bill.billCode}} </td>
+            <td> {{bill.spendTypeName}} </td>
+            <td> {{bill.partnerName}} </td>
+            <td> {{formatCurrency(bill.total)}} </td>
+            <td> {{bill.remark}} </td>
+            <td [ngClass]="bill.havePaid ? 'text-success' : 'text-danger'">
+              {{bill.havePaid ? 'Paid' : 'UnPaid'}}
+            </td>
+            <td class="text-center" style="width: 100px">
+              <i class="fa fa-edit text-primary" (click)="onPaid(bill, i)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="loading && bills" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <div *ngIf="bills?.length === 0" class="text-center">Cannot find any bill...</div>
+  </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="card card-user">
+  <div class="card-header">
+    <h5 class="card-title">
+      Profile
+      <button (click)="onClickAddEditAddress(null)"
+        class="btn btn-primary btn-sm btn-round float-right text-capitalize m-0 f-s-sm">
+        <small>+ Add address</small>
+      </button>
+    </h5>
+  </div>
+  <div class="card-body">
+    <div class="row pl-3">
+      <div *ngIf="isEmployee" class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Employee Code</label>
+          <input type="text" class="form-control" [attr.disabled]="isAdmin ? null : ''" placeholder="Employee Code"
+            [(ngModel)]="user.userCode">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" placeholder="Username" [(ngModel)]="user.userName">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="user.phoneNumber">
+        </div>
+      </div>
+      <div *ngIf="!isEmployee" class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Citizen ID</label>
+          <input type="text" class="form-control" placeholder="Citizen ID" [(ngModel)]="user.citizenId">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-control" placeholder="Company" [(ngModel)]="user.firstName">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Middle name</label>
+          <input type="text" class="form-control" placeholder="Middle name" [(ngModel)]="user.middleName">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="user.lastName">
+        </div>
+      </div>
+      <div *ngIf="isEmployee" class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Citizen ID</label>
+          <input type="text" class="form-control" placeholder="Citizen ID" [(ngModel)]="user.citizenId">
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Birthday</label>
+          <app-date-picker [setDate]="user.birthday" (selectedDateEmit)="user.birthday = $event"></app-date-picker>
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Gender</label>
+          <app-dropdown [listData]="listGender" [selectedItemId]="user.gender" [allowNoSelect]="true"
+            (selectedItemEmit)="user.gender = $event.key"></app-dropdown>
+        </div>
+      </div>
+      <div *ngIf="isEmployee" class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Branch</label>
+          <app-dropdown [listData]="listBranch" [selectedItemId]="user.branchId" [allowNoSelect]="true"
+            (selectedItemEmit)="user.branchId = $event.key"></app-dropdown>
+        </div>
+      </div>
+      <div *ngIf="isEmployee" class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Role</label>
+          <app-dropdown [listData]="listRole" [selectedItemId]="user.roleId" [allowNoSelect]="true"
+            (selectedItemEmit)="user.roleId = $event.key"
+            [defaultValue]="user.roleId === RoleIdConstant.Admin ? 'Admin' : null"
+            [disabled]="user.roleId === RoleIdConstant.Admin"></app-dropdown>
+        </div>
+      </div>
+      <div class="col-md-4 pl-1">
+        <div class="form-group">
+          <label>Status</label>
+          <app-dropdown [listData]="listEmployeeStatus" [selectedItemId]="user.statusId"
+            (selectedItemEmit)="user.statusId = $event.key"></app-dropdown>
+        </div>
+      </div>
+      <div class="col-md-6 pl-1">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" placeholder="Email" [(ngModel)]="user.email">
+        </div>
+      </div>
+      <div class="col-md-6 pl-1">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Salary</label>
+          <input type="number" class="form-control" placeholder="Salary" [(ngModel)]="user.salary">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="update ml-auto mr-auto">
+        <button type="submit" (click)="onClickUpdateProfile()" class="btn btn-primary btn-round">
+          <span *ngIf="!loading">Update Profile</span>
+          <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+          </app-loading-spinner>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row m-0">
+  <div *ngFor="let item of user.addresses" class="col-md-6 px-1">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-10 pr-0">
+            <h5 class="card-title mt-1 text-info">{{item.receiver}}</h5>
+          </div>
+          <div *ngIf="item.isDefault" class="col-2 pl-0 text-right">
+            <button class="btn btn-sm btn-outline-danger btn-round btn-icon"><i class="fa fa-bookmark"></i></button>
+          </div>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted">{{item.phoneNumber}}</h6>
+        <p class="card-text">{{getAddress(item)}}</p>
+        <i (click)="onClickAddEditAddress(item)" class="fa fa-pencil fa-2x text-info cursor-pointer" title="Edit"></i>
+        <app-delete-confirm (executeDelete)="onDeleteUserAddress(item.id)" class="ml-3 d-inline-block"
+          [message]="Message.UserInfo.DELETE_USER_ADDRESS.replace('{0}', getAddress(item))" [iconSize]="'2x'">
+        </app-delete-confirm>
+        <i *ngIf="!item.isDefault" (click)="onClickSetDeFault(item)"
+          class="fa fa-star fa-2x text-warning cursor-pointer ml-3" title="Set Default"></i>
+      </div>
+    </div>
+  </div>
+</div>

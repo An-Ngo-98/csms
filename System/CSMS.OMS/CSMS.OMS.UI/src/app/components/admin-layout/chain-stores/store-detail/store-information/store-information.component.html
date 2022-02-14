@@ -1,0 +1,137 @@
+<app-loading-spinner *ngIf="!store"></app-loading-spinner>
+
+<div *ngIf="store" class="row pl-3">
+
+  <div class="col-md-4 p-0">
+    <div class="col-12 p-0 product-avatar">
+      <img [src]="newPhotoUrl ? newPhotoUrl : getPhotoUrl(store.id, store.isNewPhoto, 270)" alt="Store photo">
+      <input class="d-none" #filePhoto type="file" accept="image/*" (change)="onUploadPhoto(filePhoto.files)">
+      <div class="overlay" (click)="filePhoto.click()" [ngClass]="{'position-relative opa-08': !store && !newPhotoUrl}">
+        <i class="fa fa-edit fa-2x avatar-text"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-8 row pr-0">
+    <div class="col-md-6 pl-1 pr-0">
+      <div class="form-group">
+        <label>Name</label>
+        <input #inputName type="text" class="form-control input-cat-name" placeholder="Name" [(ngModel)]="store.name"
+          [class.border-required]="error && !store.name">
+      </div>
+    </div>
+    <div class="col-md-6 pl-1 pr-0">
+      <div class="form-group">
+        <label>Short name</label>
+        <input type="text" class="form-control" placeholder="Short name" [(ngModel)]="store.shortName"
+          [class.border-required]="error && !store.shortName">
+      </div>
+    </div>
+
+    <div class="col-md-6 pl-1 pr-0">
+      <div class="form-group">
+        <label>Open time</label>
+        <app-time-picker [setTime]="store.openTime" [meridian]="false" [defaultTime]="{hour: 8, minute: 0, second: 0}"
+          (selectedTimeEmit)="store.openTime = $event">
+        </app-time-picker>
+      </div>
+    </div>
+
+    <div class="col-md-6 pl-1 pr-0">
+      <div class="form-group">
+        <label>Close time</label>
+        <app-time-picker [setTime]="store.closeTime" [meridian]="false" [defaultTime]="{hour: 8, minute: 0, second: 0}"
+          (selectedTimeEmit)="store.closeTime = $event">
+        </app-time-picker>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-4 pl-1">
+    <div class="form-group">
+      <label>Province</label>
+      <app-dropdown [listData]="listProvince" [selectedItemId]="store.add_Province" [allowNoSelect]="true"
+        (selectedItemEmit)="onChooseProvince($event)" [required]="false" [allowNoSelect]="true">
+      </app-dropdown>
+    </div>
+  </div>
+  <div class="col-md-4 pl-1">
+    <div class="form-group">
+      <label>District</label>
+      <app-dropdown [listData]="listDistrict" [selectedItemId]="store.add_District" [allowNoSelect]="true"
+        (selectedItemEmit)="onChooseDistrict($event)" [disabled]="!store.add_Province" [required]="false"
+        [allowNoSelect]="true">
+      </app-dropdown>
+    </div>
+  </div>
+  <div class="col-md-4 pl-1">
+    <div class="form-group">
+      <label>Ward</label>
+      <app-dropdown [listData]="listWard" [selectedItemId]="store.add_Ward" [allowNoSelect]="true"
+        (selectedItemEmit)="store.add_Ward = $event.key ? $event.value : null" [required]="false" [allowNoSelect]="true"
+        [disabled]="!store.add_District || !store.add_Province">
+      </app-dropdown>
+    </div>
+  </div>
+
+  <div class="col-4 pl-1">
+    <div class="form-group">
+      <label>Detail address</label>
+      <input type="text" class="form-control" placeholder="Detail" [(ngModel)]="store.add_Detail">
+    </div>
+  </div>
+
+  <div class="col-4 pl-1">
+    <div class="form-group">
+      <label>Space Fee</label>
+      <input type="number" class="form-control" placeholder="Space Fee" [(ngModel)]="store.spaceFee">
+    </div>
+  </div>
+
+  <div class="col-4 pl-1">
+    <div class="form-group">
+      <label>Internet Fee</label>
+      <input type="number" class="form-control" placeholder="Internet Fee" [(ngModel)]="store.internetFee">
+    </div>
+  </div>
+
+  <div class="col-6 pl-1">
+    <div class="form-group">
+      <label>Location</label>
+      <div class="input-group w-100">
+        <input type="text" class="form-control" [disabled]="true" placeholder="Location" [(ngModel)]="store.location">
+        <button class="btn btn-outline-secondary date-picker-icon" (click)="onSelectLocation()">
+          <i class="nc-icon nc-pin-3"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6 pl-1">
+    <div class="form-group">
+      <label>Tables</label>
+      <input type="text" class="form-control" placeholder="List table of store" [(ngModel)]="store.tables">
+    </div>
+  </div>
+
+  <div class="col-md-12 pl-1">
+    <div class="form-group">
+      <label>Description</label>
+      <textarea type="text" class="form-control textarea" [(ngModel)]="store.description"></textarea>
+    </div>
+  </div>
+
+  <span *ngIf="error" class="text-danger pl-2">{{errorMessage}}</span>
+  <div class="w-100 pl-2 pr-3 mb-0">
+    <ui-switch [(ngModel)]="store.enabled" color="#6bd098" defaultBgColor="#ef8157" class=" d-inline-block pt-3 mb-0"
+      ngbTooltip="{{store.enabled ? 'Enabled' : 'Disabled'}}">
+    </ui-switch>
+    <span class="pl-3 mt-4 position-absolute">{{store.enabled ? 'Enabled' : 'Disabled'}}</span>
+    <button [disabled]="loading" class="btn btn-primary float-right " (click)="onSave()">
+      <span *ngIf="!loading">Save</span>
+      <app-loading-spinner *ngIf="loading" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+      </app-loading-spinner>
+    </button>
+  </div>
+</div>

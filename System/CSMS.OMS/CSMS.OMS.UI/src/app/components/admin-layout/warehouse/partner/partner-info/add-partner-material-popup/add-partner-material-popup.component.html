@@ -1,0 +1,32 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Add Material</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+
+          <div *ngIf="isNew" class="col-12 pl-1">
+            <div class="form-group">
+              <label>Material</label>
+              <app-dropdown [disabled]="!isNew" [listData]="listMaterial" (selectedItemEmit)="onSelect($event.key)">
+              </app-dropdown>
+            </div>
+          </div>
+          <div class="col-md-12 pl-1">
+            <div class="form-group">
+              <label>Import price</label>
+              <input type="number" class="form-control" [(ngModel)]="material.price"
+                [class.border-required]="error && !material.price">
+            </div>
+          </div>
+          <div class="w-100 pl-2 pr-3 mb-0">
+            <button class="btn btn-primary float-right" (click)="onAdd()">Add </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

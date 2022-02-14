@@ -1,0 +1,26 @@
+<ngx-loading [show]="(loading$ | async)?.loadingEntities"></ngx-loading>
+<div class="container">
+  <div class="row">
+    <form name="chooseVoucherForm" [formGroup]="chooseVoucherForm">
+      <p class="login-title">Choose Voucher</p>
+      <mat-form-field class="input-1" appearance="outline">
+        <mat-label>Code vouchers</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      <mat-form-field class="input-2" appearance="outline">
+        <mat-label>Voucher</mat-label>
+        <mat-select formControlName="voucher">
+          <mat-option [value]="null">None</mat-option>
+          <mat-option *ngFor="let voucher of vouchers" [value]="voucher.id">{{voucher.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="row">
+    <div class="div-button-login">
+      <button class="button-login-1" (click)="close()">Cancel</button>
+      <button class="button-login-2" (click)="chooseVoucher()">Apply</button>
+    </div>
+  </div>
+</div>

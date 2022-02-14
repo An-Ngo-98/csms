@@ -1,0 +1,36 @@
+$width-fixed-col-1: 40px;
+
+$margin-left-col-2: 40px;
+$width-fixed-col-2: 60px;
+
+$margin-left-col-3: 100px;
+$width-fixed-col-3: 250px;
+
+$total-width-fixed-columns: 350px;
+
+.employee-management {
+  .fixed-scroller {
+    margin-left: $total-width-fixed-columns;
+  }
+
+  .fixed-table {
+    .fixed-sticky-col.col-checkbox {
+      width: $width-fixed-col-1;
+    }
+
+    .fixed-sticky-col.col-id {
+      margin-left: $margin-left-col-2;
+      width: $width-fixed-col-2;
+    }
+
+    .fixed-sticky-col.col-name {
+      margin-left: $margin-left-col-3;
+      width: $width-fixed-col-3;
+    }
+  }
+}
+
+.role-title {
+  font-weight: 300;
+  font-size: small;
+}

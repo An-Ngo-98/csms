@@ -1,0 +1,125 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-4 px-1">
+          <label>Start date</label>
+          <app-date-picker (selectedDateEmit)="startTime = $event" [setDate]="startTime" [required]="true"
+            [maxDate]="today">
+          </app-date-picker>
+        </div>
+        <div class="col-md-4 px-1">
+          <label>End date</label>
+          <app-date-picker (selectedDateEmit)="endTime = $event" [setDate]="endTime" [required]="true"
+            [maxDate]="today">
+          </app-date-picker>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getData()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Revenue by day</h5>
+          <p class="card-category">
+            <i class="fa fa-calendar"></i>
+            {{parseDateToString(revenueData?.startDate)}} - {{parseDateToString(revenueData?.endDate)}}
+          </p>
+        </div>
+        <div class="card-body">
+          <canvas id=chartStores width="400" height="100"></canvas>
+          <p class="text-center pt-3">Revenue by day by each store (Unit: VND)</p>
+        </div>
+        <div class="card-footer">
+          <div class="chart-legend">
+            <span *ngFor="let item of this.revenueData?.storeRevenues; let i = index;" class="d-inline-block pl-1">
+              <i class="fa fa-circle" [style.color]="ColorTable[i]"></i> {{item.storeName}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Percentage of revenue</h5>
+          <p class="card-category">
+            <i class="fa fa-calendar"></i>
+            {{parseDateToString(revenueData?.startDate)}} - {{parseDateToString(revenueData?.endDate)}}
+          </p>
+        </div>
+        <div class="card-body">
+          <canvas id="chartPercent"></canvas>
+          <p class="text-center pt-4">Percentage of revenue by each store (Unit: %)</p>
+        </div>
+        <div class="card-footer">
+          <div class="chart-legend">
+            <span *ngFor="let item of this.revenueData?.storeRevenues; let i = index;" class="d-inline-block pl-1">
+              <i class="fa fa-circle" [style.color]="ColorTable[i]"></i> {{item.storeName}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Revenue by store</h5>
+          <p class="card-category">
+            <i class="fa fa-calendar"></i>
+            {{parseDateToString(revenueData?.startDate)}} - {{parseDateToString(revenueData?.endDate)}}
+          </p>
+        </div>
+        <div class="card-body ">
+          <div class="tab-content">
+            <div class="tab-pane active">
+              <table class="table">
+                <thead class="text-primary">
+                  <th>Store name</th>
+                  <th>Invoices</th>
+                  <th></th>
+                  <th>Revenue</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of revenueData?.details">
+                    <td>{{item.storeName}}</td>
+                    <td>{{item.totalInvoices}}</td>
+                    <td [class.text-danger]="item.totalInvoicesPercent < 0"
+                      [class.text-success]="item.totalInvoicesPercent > 0">
+                      <i *ngIf="item.totalInvoicesPercent > 0" class="fa fa-arrow-up"></i>
+                      <i *ngIf="item.totalInvoicesPercent < 0" class="fa fa-arrow-down"></i>
+                      {{formatPercent(item.totalInvoicesPercent)}}
+                    </td>
+                    <td>{{formatCurrency(item.totalRevenue)}}</td>
+                    <td [class.text-danger]="item.totalRevenuePercent < 0"
+                      [class.text-success]="item.totalRevenuePercent > 0">
+                      <i *ngIf="item.totalRevenuePercent > 0" class="fa fa-arrow-up"></i>
+                      <i *ngIf="item.totalRevenuePercent < 0" class="fa fa-arrow-down"></i>
+                      {{formatPercent(item.totalRevenuePercent)}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" id="loading">
+    <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+  </div>
+</div>

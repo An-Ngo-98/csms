@@ -1,0 +1,109 @@
+<div class="row mt--15">
+  <div class="col-12">
+    <div class="card p-3">
+      <nav class="breadcrumb pr-0">
+        <div class="row w-100 pl-2">
+          <div class="col-12 text-right pr-0">
+            <button type="submit" class="btn btn-primary btn-sm mt-0" (click)="onExport()">Export</button>
+          </div>
+        </div>
+        <div class="row w-100 pl-2">
+          <div class="col-sm-12 col-lg-10">
+            <div class="row">
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Order No.</label>
+                  <input [(ngModel)]="searchString" class="form-control" placeholder="Order No..." type="text"
+                    (keyup.enter)="getListInvoice()">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>Order Status</label>
+                  <app-dropdown [listData]="listStatus" [selectedItemId]="statusSelected"
+                    (selectedItemEmit)="statusSelected = $event.key"></app-dropdown>
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <label>Start date</label>
+                <app-date-picker [setDate]="startDate" [maxDate]="endDate" (selectedDateEmit)="startDate = $event">
+                </app-date-picker>
+              </div>
+              <div class="col-md-3 px-1">
+                <label>End date</label>
+                <app-date-picker [setDate]="endDate" [minDate]="startDate" (selectedDateEmit)="endDate = $event">
+                </app-date-picker>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-2 text-right pr-0">
+            <br>
+            <button type="submit" class="btn btn-primary mt-1" (click)="getListInvoice()">Search</button>
+          </div>
+        </div>
+      </nav>
+      <div class="row">
+        <div class="col-md-12">
+          <app-loading-spinner *ngIf="!listInvoice"></app-loading-spinner>
+
+          <div *ngIf="listInvoice" class="invoice-management fixed-wrapper">
+            <div class="fixed-scroller">
+              <table class="fixed-table">
+                <thead>
+                  <tr>
+                    <th class="fixed-sticky-col col-checkbox text-center">
+                      <app-checkbox [checked]="isAppearedCheckAll" [disabled]="listInvoice?.totalCount == 0"
+                        (checkedCallback)="onClickCheckedAllItem($event)"></app-checkbox>
+                    </th>
+                    <th class="fixed-sticky-col text-center col-id">Order No.</th>
+                    <th class=" text-center">Store</th>
+                    <th class=" text-center">Order Date</th>
+                    <th class=" text-center">Total dishes</th>
+                    <th class=" text-center">Customer Name</th>
+                    <th class=" text-center">Customer Contact</th>
+                    <th class=" text-center">Shipping distance</th>
+                    <th class=" text-center">Order Amount</th>
+                    <th class=" text-center">Order Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let inv of listInvoice?.items; let i = index;">
+                    <td class="fixed-sticky-col text-center-all col-checkbox">
+                      <app-checkbox [checked]="inv.selected" (checkedCallback)="onClickCheckedItem($event, i)">
+                      </app-checkbox>
+                    </td>
+                    <td class="fixed-sticky-col col-id text-center-all pl-0"> {{inv.id}} </td>
+                    <td>{{inv.storeName}}</td>
+                    <td class="text-center">{{parseDateTimeToString(inv.orderedTime)}}</td>
+                    <td class="text-center">{{getTotalDishes(inv)}}</td>
+                    <td>{{inv.fullname}}</td>
+                    <td class="text-center">{{inv.phoneNumber}}</td>
+                    <td class="text-center">{{inv.distance}} km</td>
+                    <td class="text-center">{{formatCurrency(inv.total)}}</td>
+                    <td class="text-center" [class.text-primary]="getOrderStatus(inv) === 'Completed'"
+                      [class.text-danger]="getOrderStatus(inv) === 'Canceled'">
+                      {{getOrderStatus(inv)}}
+                    </td>
+                    <td>
+                      <button class="btn btn-info btn-sm m-0" (click)="onViewOrderDetail(inv)">view</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div *ngIf="loading && listInvoice" id="loading">
+              <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+            </div>
+          </div>
+
+          <app-pagination *ngIf="listInvoice" [totalCount]="listInvoice?.totalCount" [currentPageIndex]="page"
+            [pageSize]="pageSize" [savePageSize]="false" (onPageChangeEvent)="getListInvoice($event, pageSize)"
+            (onPageSizeChangeEvent)="getListInvoice(1, $event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

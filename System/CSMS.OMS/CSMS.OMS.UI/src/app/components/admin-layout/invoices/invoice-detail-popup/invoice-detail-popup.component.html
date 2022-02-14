@@ -1,0 +1,180 @@
+<div class="modal-dialog modal-xl modal-invoice-detail">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Invoice details</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row pl-3">
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Order No.</label>
+              <input type="text" class="form-control" [value]="order.id" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>From Store</label>
+              <input type="text" class="form-control" [value]="order.storeName" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Completed time</label>
+              <input type="text" class="form-control border border-success" [value]="parseDateTimeToString(order.completedTime)" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Canceled time</label>
+              <input type="text" class="form-control border border-danger" [value]="parseDateTimeToString(order.canceledTime)" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Ordered Time</label>
+              <input type="text" class="form-control" [value]="parseDateTimeToString(order.orderedTime)" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Cooked Time</label>
+              <input type="text" class="form-control" [value]="parseDateTimeToString(order.cookedTime)" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Shipped Time</label>
+              <input type="text" class="form-control" [value]="parseDateTimeToString(order.shippedTime)" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Distance</label>
+              <input type="text" class="form-control" [value]="order.distance + ' km'" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Customer Name</label>
+              <input type="text" class="form-control" [value]="order.fullname" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Receiver</label>
+              <input type="text" class="form-control" [value]="order.receiver" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Receiver Contact</label>
+              <input type="text" class="form-control" [value]="order.phoneNumber" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Earned Coins</label>
+              <input type="text" class="form-control" [value]="order.earnedCoins" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Used Voucher</label>
+              <input type="text" class="form-control" [value]="getUsedVoucher()" disabled>
+            </div>
+          </div>
+          <div class="col-md-3 pl-1">
+            <div class="form-group">
+              <label>Shipping Service</label>
+              <input type="text" class="form-control" [value]="order.shippingService" disabled>
+            </div>
+          </div>
+          <div class="col-md-6 pl-1">
+          </div>
+          <div class="col-md-2 pl-1">
+            <div class="form-group">
+              <label>Merchandise Subtotal</label>
+              <input type="text" class="form-control" [value]="formatCurrency(order.merchandiseSubtotal)" disabled>
+            </div>
+          </div>
+          <div class="col-md-2 pl-1">
+            <div class="form-group">
+              <label>Shipping Fee</label>
+              <input type="text" class="form-control" [value]="getShippingFee()" disabled>
+            </div>
+          </div>
+          <div class="col-md-2 pl-1">
+            <div class="form-group">
+              <label>Discount Applied</label>
+              <input type="text" class="form-control" [value]="'- ' + formatCurrency(order.discountVoucherApplied)"
+                disabled>
+            </div>
+          </div>
+          <div class="col-md-2 pl-1">
+            <div class="form-group">
+              <label>Used Coins</label>
+              <input type="text" class="form-control"
+                [value]="order.usedCoins + (' (- ' + formatCurrency(order.usedCoins) + ')')" disabled>
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <label>Total</label>
+              <input type="text" class="form-control border border-primary" [value]="formatCurrency(order.total)" disabled>
+            </div>
+          </div>
+          <div class="col-md-6 pl-1">
+            <div class="form-group">
+              <label>Note To Chef</label>
+              <textarea type="text" class="form-control" [value]="order.noteToChef" disabled></textarea>
+            </div>
+          </div>
+          <div class="col-md-6 pl-1">
+            <div class="form-group">
+              <label>Shipping Note</label>
+              <textarea type="text" class="form-control" [value]="order.shippingNote" disabled></textarea>
+            </div>
+          </div>
+
+          <ng-template ngFor let-item [ngForOf]="order.orderDetails" let-i="index">
+            <div class="col-md-1 pl-1">
+              <div class="form-group" style="position: absolute; bottom: 9px; width: inherit;">
+                <span># {{i + 1}}</span>
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" class="form-control" [value]="item.productName" disabled>
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Price</label>
+                <input type="text" class="form-control" [value]="formatCurrency(item.price)" disabled>
+              </div>
+            </div>
+            <div class="col-md-2 pl-1">
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="text" class="form-control" [value]="item.quantity" disabled>
+              </div>
+            </div>
+            <div class="col-md-3 pl-1">
+              <div class="form-group">
+                <label>Total</label>
+                <input type="text" class="form-control" [value]="formatCurrency(item.price * item.quantity)" disabled>
+              </div>
+            </div>
+          </ng-template>
+
+          <div class="w-100 pl-2 pr-3 mt-2 mb-0">
+            <button class="btn btn-muted float-right " (click)="close()"> Close </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

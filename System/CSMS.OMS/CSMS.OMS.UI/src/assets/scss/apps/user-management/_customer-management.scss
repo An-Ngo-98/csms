@@ -1,0 +1,23 @@
+$width-fixed-col-1: 40px;
+
+$margin-left-col-2: 40px;
+$width-fixed-col-2: 250px;
+
+$total-width-fixed-columns: 290px;
+
+.customer-management {
+  .fixed-scroller {
+    margin-left: $total-width-fixed-columns;
+  }
+
+  .fixed-table {
+    .fixed-sticky-col.col-checkbox {
+      width: $width-fixed-col-1;
+    }
+
+    .fixed-sticky-col.col-name {
+      margin-left: $margin-left-col-2;
+      width: $width-fixed-col-2;
+    }
+  }
+}

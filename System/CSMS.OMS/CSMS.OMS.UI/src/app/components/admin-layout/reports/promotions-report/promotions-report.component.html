@@ -1,0 +1,80 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Search for</label>
+            <input class="form-control" placeholder="Code, Title, Description..." type="text" [(ngModel)]="searchString"
+              ngbTooltip="use &quot;,&quot; or &quot;;&quot; for multi result" (keyup.enter)="getData(1)">
+          </div>
+        </div>
+        <div class="col-md-3 px-1">
+          <div class="form-group">
+            <label>Search by</label>
+            <app-dropdown [listData]="listSearchBy" [selectedItemId]="searchBySelected"
+              (selectedItemEmit)="searchBySelected = $event.key"></app-dropdown>
+          </div>
+        </div>
+        <div class="col-md-3 px-1">
+          <label>Start date</label>
+          <app-date-picker (selectedDateEmit)="startDate = $event" [setDate]="startDate"
+            [disabled]="searchBySelected !== SearchBy.StartDate.toString() && searchBySelected !== SearchBy.EndDate.toString()">
+          </app-date-picker>
+        </div>
+        <div class="col-md-3 px-1">
+          <label>End date</label>
+          <app-date-picker [minDate]="startDate" (selectedDateEmit)="endDate = $event" [setDate]="endDate"
+            [disabled]="searchBySelected !== SearchBy.StartDate.toString() && searchBySelected !== SearchBy.EndDate.toString()">
+          </app-date-picker>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getData(1)">Search</button>
+    </div>
+  </div>
+</nav>
+
+<app-loading-spinner *ngIf="loading && !listPromoteReport"></app-loading-spinner>
+
+<div *ngIf="listPromoteReport" class="row">
+  <div class="col-12 mx-2">
+    <div class="table-responsive">
+      <table class="table w-100">
+        <thead class=" text-primary">
+          <tr>
+            <th class="text-center">Title</th>
+            <th class="text-center">Code</th>
+            <th class="text-center">Platform</th>
+            <th class="text-center">Start date</th>
+            <th class="text-center">End date</th>
+            <th class="text-center">Used promotions</th>
+            <th class="text-center">Sold products</th>
+            <th class="text-center">Total discount</th>
+            <th class="text-center">Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listPromotion.items; let i = index;" class="tr-click">
+            <td> {{item.title}} </td>
+            <td class="text-center"> {{item.code}} </td>
+            <td class="text-center"> {{item.platforms.join(', ')}} </td>
+            <td class="text-center"> {{parseDateToString(item.startDate)}} </td>
+            <td class="text-center"> {{parseDateToString(item.endDate)}} </td>
+            <td class="text-center"> {{listPromoteReport[i].totalUsed}} </td>
+            <td class="text-center"> {{listPromoteReport[i].totalSoldProducts}} </td>
+            <td class="text-center"> {{formatCurrency(listPromoteReport[i].totalDiscount)}} </td>
+            <td class="text-center"> {{formatCurrency(listPromoteReport[i].revenue)}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination *ngIf="listPromotion" [totalCount]="listPromotion?.totalCount" [currentPageIndex]="page"
+      [listPageSize]="listPageSize" [pageSize]="pageSize" [savePageSize]="false"
+      (onPageChangeEvent)="getData($event, pageSize)" (onPageSizeChangeEvent)="getData(1, $event)">
+    </app-pagination>
+  </div>
+</div>

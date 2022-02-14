@@ -1,0 +1,32 @@
+.container {
+    .row {}
+    .food-4 {
+        border: 1px solid #ffe9e9;
+        margin-top: 1.6em;
+        background-color: white;
+        margin-left: 2%;
+        height: fit-content;
+        .ul-food-4 {
+            margin-top: 5%;
+            border: 1px solid #ffe9e9;
+            .info-food {
+                list-style-type: none;
+                .info-food-one {
+                    font-weight: 600;
+                    font-size: 16px;
+                    margin-top: 2%;
+                    text-align: center;
+                    margin-bottom: -1%;
+                }
+                .info-food-two {
+                    font-size: 12px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .mat-paginator {
+        margin-left: 1.95em;
+        width: 91.8em;
+    }
+}

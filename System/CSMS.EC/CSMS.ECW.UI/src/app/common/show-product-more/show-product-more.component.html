@@ -1,0 +1,11 @@
+<div class="row food-4">
+  <div class="col-md-3" *ngFor="let item of products">
+      <ul class="ul-food-4" style="padding-left: 0%;">
+          <li class="info-food">
+              <img style="width: 100%; height: 140px; cursor: pointer; outline: none;" routerLink='/product/detail/{{item.id}}' src="{{getImg(item.avatarId)}}">
+              <p class="info-food-one">{{item.name}}</p>
+              <p class="info-food-two">{{item.description}}</p>
+          </li>
+      </ul>
+  </div>
+</div>

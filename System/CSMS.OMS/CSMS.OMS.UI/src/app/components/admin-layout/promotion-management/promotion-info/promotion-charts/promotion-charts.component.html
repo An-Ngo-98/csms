@@ -1,0 +1,92 @@
+<div class="row">
+  <div *ngIf="false" class="col-12 mt-5 mb-5">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Quantity Limit Statistics</h5>
+        <p class="card-category">Promotion Performance</p>
+      </div>
+      <div class="card-body ">
+        <canvas id="chartEmail"></canvas>
+      </div>
+      <div class="card-footer ">
+        <div class="legend">
+          <i class="fa fa-circle text-primary"></i> Participants (225)
+          <i class="fa fa-circle text-gray ml-5"></i> Availables (113)
+        </div>
+        <hr>
+        <div class="stats">
+          <i class="fa fa-calendar"></i> May 5 2019 12:45 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card ">
+      <div class="card-header">
+        <h5 class="card-title">Product Statistics</h5>
+        <p class="card-category">Event Performance</p>
+      </div>
+      <div class="card-body">
+        <canvas id="chartEmail2"></canvas>
+      </div>
+      <div class="card-footer">
+        <div class="legend">
+          <i class="fa fa-circle text-primary"></i> Participants (225)
+          <i class="fa fa-circle text-gray ml-5"></i> Availables (113)
+        </div>
+        <hr>
+        <div class="stats">
+          <i class="fa fa-calendar"></i> May 5 2019 12:45 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card ">
+      <div class="card-header">
+        <h5 class="card-title">Invoice Statistics</h5>
+        <p class="card-category">Event Performance</p>
+      </div>
+      <div class="card-body">
+        <canvas id="chartEmail3"></canvas>
+      </div>
+      <div class="card-footer">
+        <div class="legend">
+          <i class="fa fa-circle text-primary"></i> Succeed (225)
+          <i class="fa fa-circle text-gray ml-5"></i> Canceled (113)
+        </div>
+        <hr>
+        <div class="stats">
+          <i class="fa fa-calendar"></i> May 5 2019 12:45 PM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-title">Total invoices by date</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="speedChart" width="400" height="100"></canvas>
+      </div>
+      <div class="card-footer">
+        <div class="chart-legend">
+          <i class="fa fa-circle text-info"></i> Succeed invoices
+          <i class="fa fa-circle text-warning ml-3"></i> Cancel invoices
+        </div>
+        <hr />
+        <div class="card-stats">
+          <i class="fa fa-calendar"></i> May 5 2019 12:45 PM
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

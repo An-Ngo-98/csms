@@ -1,0 +1,89 @@
+<mat-progress-bar *ngIf="loading || (loadingCategory$ | async).loadingEntities || (loadingBranch$ | async).loadingEntities" class="loading-bar" color="accent" mode="indeterminate"></mat-progress-bar>
+<div class="a">
+    <div class="row row-nav-1">
+        <div class="col-md-2">
+            <img style="cursor: pointer; outline: none;" routerLink='/' class="img-represent" src="../../../../assets/img/favicon.ico">
+        </div>
+        <div class="col-md-1" style="margin-left: -5%">
+            <button style="cursor: pointer;" class="nav-button-1" mat-button [matMenuTriggerFor]="menuProduct">Menu</button>
+            <mat-menu #menuProduct="matMenu">
+                <button mat-menu-item *ngFor="let category of catogeries && catogeries.items" (click)="searchByCategory(category.id)">{{category.name}}</button>
+            </mat-menu>
+        </div>
+        <div class="col-md-5 item">
+            <a style="cursor: pointer;" class="item-food" [matMenuTriggerFor]="menuStore">Store</a>
+            <mat-menu #menuStore="matMenu">
+                <button style="cursor: pointer;" mat-menu-item *ngFor="let branch of branchs && branchs.items" (click)="searchByBranch(branch.id)">{{branch.name}}</button>
+            </mat-menu>
+            <a class="item-food"
+                *ngFor="let category of (catogeries && catogeries.items.slice(0, 3))" (click)="searchByCategory(category.id)" style="cursor: pointer;">{{category.name}}</a>
+        </div>
+        <div class="col-md-3" style="margin-top: -0.6em; margin-left: 8%;">
+            <!-- <i class="fas fa-search nav-icon-search"></i> -->
+            <div *ngIf="!isLogged" class="auth-user">
+                <div class="auth-user-1" [matMenuTriggerFor]="menu3" style="cursor: pointer;">
+                    <i class="far fa-user auth-user-1-1"></i>
+                    <span class="auth-user-1-2">
+                        <p style="margin-bottom: -1px;">Login</p>
+                        <p>Account</p>
+                    </span>
+                </div>
+                <!-- <img class="profile-user" mat-button [matMenuTriggerFor]="menu3" src="../../../../assets/img/ryan.jpg"> -->
+                <mat-menu #menu3="matMenu">
+                    <button mat-menu-item (click)="openModalLogin()">Login</button>
+                    <button mat-menu-item (click)="openModalSignUp()">Sign up</button>
+                </mat-menu>
+            </div>
+
+            <div *ngIf="isLogged" class="auth-user">
+                <div class="auth-user-1" [matMenuTriggerFor]="menu2" style="cursor: pointer;">
+                    <i class="far fa-user auth-user-1-1"></i>
+                    <span class="auth-user-1-2">
+                        <p style="margin-bottom: -1px;">{{this.user && this.user.middleName}} {{this.user && this.user.lastName}}</p>
+                        <p>Account</p>
+                    </span>
+                </div>
+                <mat-menu #menu2="matMenu">
+                    <button mat-menu-item routerLink='/user/profile'>Account information</button>
+                    <button mat-menu-item routerLink='/user/address-book'>Address book</button>
+                    <button mat-menu-item routerLink='/user/order-management'>Order management</button>
+                    <button mat-menu-item routerLink='/user/comment'>My comment</button>
+                    <button mat-menu-item routerLink='/user/favorite-product'>Favorited product</button>
+                    <button mat-menu-item routerLink='/user/buy-later-product'>Buy later product</button>
+                    <button mat-menu-item routerLink='/user/change-password'>Change password</button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </mat-menu>
+            </div>
+
+            <!-- <div *ngIf="(isLogged$ | async)" style="margin-top: 19%;">
+                <img class="profile-user" mat-button [matMenuTriggerFor]="menu2" src="../../../../assets/img/ryan.jpg">
+                <mat-menu #menu2="matMenu">
+                    <button mat-menu-item routerLink='/user/profile'>Thông tin tài khoản</button>
+                    <button mat-menu-item routerLink='/user/order-management'>Quản lý đơn hàng</button>
+                    <button mat-menu-item>Nhận xét sản phẩm đã mua</button>
+                    <button mat-menu-item routerLink='/user/change-password'>Change password</button>
+                    <button mat-menu-item (click)="logout()">Logout</button>
+                </mat-menu>
+            </div> -->
+            <div class="cart-user" routerLink='/checkout/cart' style="cursor: pointer;">
+                <i class="fas fa-shopping-cart checkout-cart cart-user-1"></i>
+                <span class="cart-user-2">
+                    <p>
+                        Cart
+                    </p>
+                    <p class="cart-user-2-2">{{currentCount}}</p>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p class="info-one">DOWNLOAD THE PANDA APP</p>
+        <p class="info-two">BOOK ANY WELL FREESHIP</p>
+        <form name="formSearch" [formGroup]="formSearch">
+            <input type="text" class="search-food" placeholder="Search for what you need here ..."
+                formControlName="searchString" (keyup.enter)="searchProduct()">
+        </form>
+        <a style="cursor: pointer;" (click)="searchProduct()" class="search-food-icon"><i class="fas fa-search icon-search"></i></a>
+        <img src="../../../../assets/img/banner-header.png">
+    </div>
+</div>

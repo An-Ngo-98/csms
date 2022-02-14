@@ -1,0 +1,16 @@
+<form class="form-inline">
+  <div class="form-group w-100 mb-0">
+    <div class="input-group w-100">
+      <input class="form-control" [disabled]="disabled" placeholder="{{placeholder}}" name="dp"
+        [minDate]="praseDateToNgbDate(minDate)" [maxDate]="praseDateToNgbDate(maxDate)"
+        [class.border-required]="!dataValid" [(ngModel)]="selectedDate" ngbDatepicker #d="ngbDatepicker"
+        title="yyyy-mm-dd" (ngModelChange)="handleChangeInput()">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary date-picker-icon" [class.disabled]="disabled"
+          [class.border-required]="!dataValid" (click)="d.toggle()">
+          <i class="nc-icon nc-calendar-60" [class.icon-required]="!dataValid"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

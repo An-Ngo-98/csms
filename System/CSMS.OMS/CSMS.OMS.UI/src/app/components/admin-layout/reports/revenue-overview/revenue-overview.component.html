@@ -1,0 +1,100 @@
+<nav class="breadcrumb pr-0">
+  <div class="row w-100 pl-2">
+    <div class="col-sm-12 col-lg-10">
+      <div class="row">
+        <div class="col-md-4 px-1">
+          <label>Start date</label>
+          <app-date-picker (selectedDateEmit)="startTime = $event" [setDate]="startTime" [required]="true"
+            [maxDate]="today">
+          </app-date-picker>
+        </div>
+        <div class="col-md-4 px-1">
+          <label>End date</label>
+          <app-date-picker (selectedDateEmit)="endTime = $event" [setDate]="endTime" [required]="true"
+            [maxDate]="today">
+          </app-date-picker>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-lg-2 text-right pr-0">
+      <br>
+      <button type="submit" class="btn btn-primary mt-1" (click)="getData()">Search</button>
+    </div>
+  </div>
+</nav>
+
+<app-loading-spinner *ngIf="!revenueData"></app-loading-spinner>
+
+<div *ngIf="revenueData" class="row bg-white mb-3 mx-1" style="border-radius: 12px;">
+  <div class="col-md-5 p-0">
+    <div class="card-header bg-white border-none">
+      <h5 class="card-title">Revenue </h5>
+      <p class="card-category">
+        <i class="fa fa-calendar"></i>
+        {{parseDateToString(revenueData?.startTime)}} -
+        {{parseDateToString(revenueData?.endTime)}}
+      </p>
+    </div>
+    <div class="card-body text-center">
+      <!-- <div class="col-md-4 center-col"> -->
+      <h1 class="mt-0 mb-1">{{formatCurrency(revenueData.totalProceeds)}}</h1>
+      <h5 class="text-secondary">Total Proceeds</h5>
+      <!-- </div> -->
+    </div>
+  </div>
+  <div class="col-md-7 row p-0 pt-3">
+    <div class="col-md-6 text-center center-col">
+      <h2 class="mt-0 mb-1">{{revenueData.numOfTransactions}}</h2>
+      <p class="text-secondary">Number of transactions</p>
+    </div>
+    <div class="col-md-6 text-center center-col">
+      <h2 class="mt-0 mb-1">{{formatCurrency(revenueData.avgPerTransaction)}}</h2>
+      <p class="text-secondary">Average per transaction</p>
+    </div>
+    <div class="col-md-6 text-center center-col">
+      <h2 class="mt-0 mb-1">{{formatCurrency(revenueData.totalDiscount)}}</h2>
+      <p class="text-secondary">Discount</p>
+    </div>
+    <div class="col-md-6 text-center center-col">
+      <h2 class="mt-0 mb-1">{{revenueData.numbOfCoinsRefunded}}</h2>
+      <p class="text-secondary">Number of coins refunded</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Average revenue per hour</h5>
+        <p class="card-category">
+          <i class="fa fa-calendar"></i>
+          {{parseDateToString(revenueData?.startTime)}} - {{parseDateToString(revenueData?.endTime)}}
+        </p>
+      </div>
+      <div class="card-body ">
+        <canvas id=chartHours width="400" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Revenue by day</h5>
+        <p class="card-category">
+          <i class="fa fa-calendar"></i>
+          {{parseDateToString(revenueData?.startTime)}} - {{parseDateToString(revenueData?.endTime)}}</p>
+      </div>
+      <div class="card-body ">
+        <canvas id=chartDays width="400" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading && revenueData" id="loading">
+  <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+</div>

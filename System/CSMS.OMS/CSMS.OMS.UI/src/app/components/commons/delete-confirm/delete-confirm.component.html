@@ -1,0 +1,9 @@
+<div *ngIf="visible && !isRoundIcon" [id]="id">
+  <i class="fa fa-trash fa-{{iconSize}} text-danger cursor-pointer" [class.disabled]="disabled" ngbTooltip="Delete"
+    container="body" (click)="confirmDelete()"></i>
+</div>
+
+<button *ngIf="visible && isRoundIcon" (click)="confirmDelete()" [class.disabled]="disabled"
+  class="btn btn-outline-danger btn-fab btn-icon btn-round" ngbTooltip="Delete" container="body">
+  <i class="fa fa-trash"></i>
+</button>

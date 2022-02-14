@@ -1,0 +1,176 @@
+<div class="row mt--15">
+  <div class="col-9">
+    <div class="row">
+      <div class="col cursor-pointer p-0 m-0 mx-1" (click)="onGetOrders(OrderStatus.Pending)">
+        <div class="card card-stats" [class.selected-banner]="orderStatusSelected === OrderStatus.Pending">
+          <h4 class="card-title text-center mt-3">{{overviewData?.totalPending}}</h4>
+          <p class="card-category text-center">Pending Confirm</p>
+        </div>
+      </div>
+      <div class="col cursor-pointer p-0 m-0 mx-1" (click)="onGetOrders(OrderStatus.Cooking)">
+        <div class="card card-stats" [class.selected-banner]="orderStatusSelected === OrderStatus.Cooking">
+          <h4 class="card-title text-center mt-3">{{overviewData?.totalCooking}}</h4>
+          <p class="card-category text-center">Cooking Orders</p>
+        </div>
+      </div>
+      <div class="col cursor-pointer p-0 m-0 mx-1" (click)="onGetOrders(OrderStatus.Shipping)">
+        <div class="card card-stats" [class.selected-banner]="orderStatusSelected === OrderStatus.Shipping">
+          <h4 class="card-title text-center mt-3">{{overviewData?.totalShipping}}</h4>
+          <p class="card-category text-center">Shipping Orders</p>
+        </div>
+      </div>
+      <div class="col cursor-pointer p-0 m-0 mx-1" (click)="onGetOrders(OrderStatus.Completed)">
+        <div class="card card-stats" [class.selected-banner]="orderStatusSelected === OrderStatus.Completed">
+          <h4 class="card-title text-center mt-3">{{overviewData?.totalCompleted}}</h4>
+          <p class="card-category text-center">Completed Orders</p>
+        </div>
+      </div>
+      <div class="col cursor-pointer p-0 m-0 mx-1" (click)="onGetOrders(OrderStatus.Canceled)">
+        <div class="card card-stats" [class.selected-banner]="orderStatusSelected === OrderStatus.Canceled">
+          <h4 class="card-title text-center mt-3">{{overviewData?.totalCanceled}}</h4>
+          <p class="card-category text-center">Canceled Orders</p>
+        </div>
+      </div>
+    </div>
+    <div class="row px-1">
+      <div *ngIf="isShowTables()" class="col-2">
+        <div class="row justify-content-center">
+          <span *ngFor="let table of tables"
+            (click)="getOrderByTable(table) != undefined ? (orderSelected = getOrderByTable(table)) : onAddNewOrder(table)"
+            [ngClass]="getOrderByTable(table) != undefined ? getStatusColor(getOrderByTable(table)) : 'bg-white'"
+            class="border border-primary rounded cursor-pointer p-3 mr-2 mb-2"
+            ngbTooltip="{{getOrderStatusText(getOrderByTable(table))}}">
+            {{table}}
+          </span>
+        </div>
+      </div>
+      <div class="col" [class.px-0]="isShowTables()">
+        <div class="row">
+          <ng-template ngFor let-order [ngForOf]="overviewData?.items" let-i="index">
+            <div *ngIf="isShowOrder(order)" class="col-4 cursor-pointer p-0 mb-2">
+              <div class="mx-1 px-2 border border-info bg-white" [class.selected-order]="order.id === orderSelected?.id"
+                style="border-radius: 12px; box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);"
+                (click)="orderSelected = order">
+                <div class="col-12 w-100 p-2">
+                  <span class="text-info">
+                    <i class="fa fa-hourglass-o pr-2"></i>
+                    {{getOrderStatusText(order)}}
+                  </span>
+                  <span class="text-danger float-right">{{getTimeOnly(order.orderedTime)}}</span> <br>
+                  <span>#{{order.id}}</span>
+                </div>
+                <div class="col-12">
+                  <div class="row px-1">
+                    <div class="col-6 px-1">
+                      <small class="text-muted">Orderer</small>
+                      <p>{{order.fullname}}</p>
+                    </div>
+                    <div class="col-3 px-1 text-center">
+                      <small class="text-muted">Dishs</small>
+                      <p>{{getNumOfDishs(order.orderDetails)}}</p>
+                    </div>
+                    <div class="col-3 px-1 text-right">
+                      <small class="text-muted">Distance</small>
+                      <p>{{order.distance}} km</p>
+                    </div>
+                    <div class="col-12 p-0">
+                      <h5 class="w-100 text-right mb-1"><small>{{formatCurrency(order.total)}}</small></h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="row" *ngxPermissionsOnly="[RoleConstant.ADMIN]">
+      <div class="col-12 px-1">
+        <div class="form-group">
+          <app-dropdown [listData]="listBranch" [selectedItemId]="branchIdSelected"
+            (selectedItemEmit)="onSelectBranch($event.key)"></app-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="orderSelected" class="card p-1" style="width: 100%;">
+      <div class="row border-bottom mx-2 mt-2 pb-2">
+        <div class="col-2 p-0 text-center center-col border-right">
+          <i class="fa fa-hourglass-o text-info fa-lg"></i>
+        </div>
+        <div class="col-8">
+          <p class="text-info text-uppercase mb-0">
+            {{getOrderStatusText(orderSelected)}}
+          </p>
+          <p class="text-muted mb-0">#{{orderSelected.id}}</p>
+        </div>
+        <div class="col-2 p-0">
+          <p class="text-danger text-right mb-0">
+            {{getTimeOnly(orderSelected.orderedTime)}}
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="orderSelected" class="row col-12 border-bottom mx-2 px-0 pt-3 pb-3">
+        <span class="text-muted">
+          <i class="fa fa-map-marker fa-lg text-secondary pr-2"> </i>
+          <span class="pr-5">{{orderSelected.address}}</span>
+        </span>
+      </div>
+
+      <div *ngIf="orderSelected" class="mx-2 mt-3 mb-4" style="min-height: 130px;">
+        <div *ngFor="let prod of orderSelected.orderDetails" class="row mb-2 p-0">
+          <div class="col-6">{{prod.productName}}</div>
+          <div class="col-2">{{prod.quantity}}</div>
+          <div class="col-4 text-right text-danger">{{formatCurrency(prod.price)}}</div>
+        </div>
+      </div>
+
+      <div *ngIf="orderSelected" class="row mx-2 p-0 pt-2 pb-2 border-top d-block">
+        <p>
+          <i class="fa fa-sticky-note-o text-success fa-lg pr-2"></i>
+          Chef's note:
+          <span class="text-muted">{{orderSelected.noteToChef}}</span>
+        </p>
+        <p class="pb-0">
+          <i class="fa fa-sticky-note-o text-success fa-lg pr-2"></i>
+          Shipper's note:
+          <span class="text-muted">{{orderSelected.shippingNote}}</span>
+        </p>
+      </div>
+
+      <div *ngIf="orderSelected" class="row mx-2 p-0 pt-2 pb-2 border-top">
+        <div class="col-8 p-0">
+          <span>Total <br>
+            <h5 class="text-danger">{{formatCurrency(orderSelected.total)}}</h5>
+          </span>
+        </div>
+        <div class="col-4 text-center p-0">
+          <!-- <i class="fa fa-print fa-2x text-info"></i> <br>
+          <small class="text-info">Print invoice</small> -->
+        </div>
+        <div *ngIf="getOrderStatusId(orderSelected) === OrderStatus.Pending" class="col p-1">
+          <button class="btn btn-danger w-100" (click)="onCancelOrder(orderSelected.id)">Cancel</button>
+        </div>
+        <div *ngIf="getOrderStatusId(orderSelected) === OrderStatus.Pending" class="col p-1">
+          <button class="btn btn-info w-100" (click)="onConfirmNewOrder(orderSelected.id)">Confirm</button>
+        </div>
+        <div *ngIf="getOrderStatusId(orderSelected) === OrderStatus.Cooking" class="col p-0">
+          <button class="btn btn-info w-100" (click)="onShipping(orderSelected.id)">Ready to
+            {{orderSelected?.id[0] === 'T' ? 'eating' : 'shipping'}}
+          </button>
+        </div>
+        <div *ngIf="getOrderStatusId(orderSelected) === OrderStatus.Shipping" class="col p-0">
+          <button class="btn btn-info w-100" (click)="onCompleted(orderSelected.id)">Order Completed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" id="loading">
+    <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+  </div>
+</div>

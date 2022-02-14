@@ -1,0 +1,359 @@
+<ng-container *ngxPermissionsOnly="[RoleConstant.ADMIN]">
+  <app-loading-spinner *ngIf="!statisticData"></app-loading-spinner>
+
+  <div *ngIf="statisticData">
+    <div class="row mt--15">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-user-plus text-warning"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">New users</p>
+                  <p class="card-title">
+                    {{numOfNewUsers}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i> {{parseDateToString(statisticData?.startTime)}} -
+              {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-users text-primary"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">New customers</p>
+                  <p class="card-title">{{statisticData?.numOfNewCustomers}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-calendar-o"></i> {{parseDateToString(statisticData?.startTime)}} -
+              {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-newspaper-o text-danger"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">New Orders</p>
+                  <p class="card-title">{{statisticData?.numOfNewOrders}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-clock-o"></i> {{parseDateToString(statisticData?.startTime)}} -
+              {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-4">
+                <div class="icon-big text-center icon-warning">
+                  <i class="fa fa-money text-success"></i>
+                </div>
+              </div>
+              <div class="col-7 col-md-8">
+                <div class="numbers">
+                  <p class="card-category">New Invoices</p>
+                  <p class="card-title">{{statisticData?.numOfNewInvoices}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-refresh"></i> {{parseDateToString(statisticData?.startTime)}} -
+              {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header">
+            <div>
+              <h5 class="card-title d-inline">Current Orders </h5>
+              <p class="card-category float-right pt-2">{{parseDateToString(statisticData?.currentOrder.updatedTime)}}
+              </p>
+            </div>
+            <p class="card-category mt-2">Order being processed</p>
+          </div>
+          <div class="card-body text-center">
+            <h2 class="mt-0 mb-1">{{formatCurrency(statisticData?.currentOrder.total)}}</h2>
+            <p class="text-secondary">Total receivables</p>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-6 ml-auto ">
+                <h5 class="text-center">
+                  {{statisticData?.currentOrder.pending}}
+                  <br>
+                  <small class="text-secondary">Pending</small>
+                </h5>
+              </div>
+              <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                <h5 class="text-center">
+                  {{statisticData?.currentOrder.cooking}}
+                  <br>
+                  <small class="text-secondary">Cooking</small>
+                </h5>
+              </div>
+              <div class="col-lg-4 mr-auto">
+                <h5 class="text-center">
+                  {{statisticData?.currentOrder.shipping}}
+                  <br>
+                  <small class="text-secondary">Shipping</small>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer pt-0">
+            <hr class="mt-0">
+            <div class="stats">
+              <i class="fa fa-history"></i> {{getUpdatedTime(statisticData?.currentTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header">
+            <div>
+              <h5 class="card-title d-inline">Revenue Overview</h5>
+              <p class="card-category float-right pt-2">
+                {{parseDateToString(statisticData?.revenueOverview.updatedTime)}}
+              </p>
+            </div>
+            <p class="card-category mt-2">Orders have ended</p>
+          </div>
+          <div class="card-body text-center">
+            <h2 class="mt-0 mb-1">{{formatCurrency(statisticData?.revenueOverview.total)}}</h2>
+            <p>Total profit earned</p>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-6 ml-auto ">
+                <h5 class="text-center">
+                  {{statisticData?.revenueOverview.totalOrders}}
+                  <br>
+                  <small class="text-muted">Orders</small>
+                </h5>
+              </div>
+              <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                <h5 class="text-center">
+                  {{statisticData?.revenueOverview.completedOrders}}
+                  <br>
+                  <small class="text-muted">Completed</small>
+                </h5>
+              </div>
+              <div class="col-lg-4 mr-auto">
+                <h5 class="text-center">
+                  {{statisticData?.revenueOverview.canceledOrders}}
+                  <br>
+                  <small class="text-muted">Canceled</small>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer pt-0">
+            <hr class="mt-0">
+            <div class="stats">
+              <i class="fa fa-history"></i> {{getUpdatedTime(statisticData?.currentTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header">
+            <h5 class="card-title d-inline">Featured categories</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="row">
+              <div *ngIf="statisticData?.featuredCategories[0]" class="col ml-auto ">
+                <h3 class="text-center text-danger mb-1 mt-3">
+                  {{statisticData?.featuredCategories[0].percent}} %
+                </h3>
+                <h6 class="text-danger">
+                  {{formatCurrency(statisticData?.featuredCategories[0].revenue)}}
+                </h6>
+                <h5 class="text-secondary pt-2 mb-0">
+                  <small>{{statisticData?.featuredCategories[0].categoryName}}</small>
+                </h5>
+              </div>
+              <div *ngIf="statisticData?.featuredCategories[1]" class="col ml-auto mr-auto">
+                <h3 class="text-center text-primary mb-1 mt-3">
+                  {{statisticData?.featuredCategories[1].percent}} %
+                </h3>
+                <h6 class="text-primary">
+                  {{formatCurrency(statisticData?.featuredCategories[1].revenue)}}
+                </h6>
+                <h5 class="text-secondary pt-2 mb-0">
+                  <small>{{statisticData?.featuredCategories[1].categoryName}}</small>
+                </h5>
+              </div>
+              <div *ngIf="statisticData?.featuredCategories[2]" class="col mr-auto">
+                <h3 class="text-center text-success mb-1 mt-3">
+                  {{statisticData?.featuredCategories[2].percent}} %
+                </h3>
+                <h6 class="text-success">
+                  {{formatCurrency(statisticData?.featuredCategories[2].revenue)}}
+                </h6>
+                <h5 class="text-secondary pt-2 mb-0">
+                  <small>{{statisticData?.featuredCategories[2].categoryName}}</small>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer pt-0">
+            <hr class="mt-0">
+            <div class="stats">
+              <i class="fa fa-calendar"></i>
+              {{parseDateToString(statisticData?.startTime)}} - {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header">
+            <h5 class="card-title d-inline">Best selling products</h5>
+          </div>
+          <div class="card-body text-center">
+            <div class="row">
+              <div *ngIf="statisticData?.bestSellingProducts[0]" class="col ml-auto ">
+                <h3 class="text-center text-danger mb-1 mt-3">
+                  {{statisticData?.bestSellingProducts[0].quantity}}
+                </h3>
+                <h6 class="text-danger">
+                  {{formatCurrency(statisticData?.bestSellingProducts[0].revenue)}}
+                </h6>
+                <h5 class="text-muted pt-2 mb-0">
+                  <small>{{statisticData?.bestSellingProducts[0].productName}}</small>
+                </h5>
+              </div>
+              <div *ngIf="statisticData?.bestSellingProducts[1]" class="col ml-auto mr-auto">
+                <h3 class="text-center text-primary mb-1 mt-3">
+                  {{statisticData?.bestSellingProducts[1].quantity}}
+                </h3>
+                <h6 class="text-primary">
+                  {{formatCurrency(statisticData?.bestSellingProducts[1].revenue)}}
+                </h6>
+                <h5 class="text-muted pt-2 mb-0">
+                  <small>{{statisticData?.bestSellingProducts[1].productName}}</small>
+                </h5>
+              </div>
+              <div *ngIf="statisticData?.bestSellingProducts[2]" class="col mr-auto">
+                <h3 class="text-center text-success mb-1 mt-3">
+                  {{statisticData?.bestSellingProducts[2].quantity}}
+                </h3>
+                <h6 class="text-success">
+                  {{formatCurrency(statisticData?.bestSellingProducts[2].revenue)}}
+                </h6>
+                <h5 class="text-muted pt-2 mb-0">
+                  <small>{{statisticData?.bestSellingProducts[2].productName}}</small>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer pt-0">
+            <hr class="mt-0">
+            <div class="stats">
+              <i class="fa fa-calendar"></i>
+              {{parseDateToString(statisticData?.startTime)}} - {{parseDateToString(statisticData?.endTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title">Latest Order</h5>
+            <p class="card-category">Newest orders from all stores</p>
+          </div>
+          <div class="card-body ">
+            <div class="tab-content">
+              <div class="tab-pane active">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th></th>
+                    <th>Order Id </th>
+                    <th>Store </th>
+                    <th>Order Time </th>
+                    <th>Total payment </th>
+                    <th>Status </th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of statisticData?.latestOrders">
+                      <td> <i class="fa fa-money text-muted fa-lg"></i> </td>
+                      <td> {{order.orderId}} </td>
+                      <td> {{order.store}} </td>
+                      <td> {{parseDateTimeToString(order.orderedTime)}} </td>
+                      <td> {{formatCurrency(order.total)}} </td>
+                      <td class="text-muted"><i class="fa fa-circle text-muted"></i> {{order.status}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer pt-0">
+            <hr class="pt-0">
+            <div class="stats">
+              <i class="fa fa-history"></i> {{getUpdatedTime(statisticData?.currentTime)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

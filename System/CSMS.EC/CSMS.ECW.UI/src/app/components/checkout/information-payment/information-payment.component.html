@@ -1,0 +1,175 @@
+<div style="background-color: #eee;">
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+
+  <div class="container group-food-one all-white">
+    <div class="row" style="margin-top: 1%;">
+      <mat-icon class="icon-place">place</mat-icon>
+      <p class="text-ship">Shipping address</p>
+    </div>
+    <div class="row">
+      <div class="col-md-5">
+        <p style="float: left; margin-left: 5%; font-size: 1rem;">Receiver: {{addressActive && addressActive.receiver}}</p>
+        <p style="float: right; margin-right: 8%; font-size: 1rem;">Phone: {{addressActive && addressActive.phoneNumber}} </p>
+      </div>
+      <div class="col-md-6">
+        <p style="font-size: 1rem;">Address: {{addressActive && addressActive.detail}}, {{addressActive && addressActive.ward}}, {{addressActive && addressActive.district}}, {{addressActive && addressActive.province}}</p>
+      </div>
+      <div class="col-md-1" style="margin-left: -6%;">
+        <mat-icon style="cursor: pointer;" (click)="openModalAddress()">edit</mat-icon>
+      </div>
+    </div>
+</div>
+
+<div class="container group-food-one all-white">
+  <div class="row" style="margin-top: 1%;">
+    <mat-icon class="icon-food">fastfood</mat-icon>
+    <p class="text-order-product">Order products</p>
+  </div>
+  <div class="row row-food-one">
+    <div class="col-md-3">
+      <p>Image</p>
+    </div>
+    <div class="col-md-3">
+      <p>Name</p>
+    </div>
+    <div class="col-md-2">
+      <p>Price</p>
+    </div>
+      <div class="col-md-2">
+      <p>Count</p>
+    </div>
+    <div class="col-md-2">
+      <p>Total</p>
+    </div>
+  </div>
+  <div style="margin-bottom: 1%; margin-left: 1%;" class="row" *ngFor="let product of cartsLocalStorage">
+    <div class="col-md-3">
+      <img class="img-left" src="{{getImg(product.avatarId)}}">
+    </div>
+    <div class="col-md-3">
+      <p style="padding-top: 2%;">{{product.name}}</p>
+    </div>
+    <div class="col-md-2">
+      <p style="padding-top: 2%;">{{product.price}} đ</p>
+    </div>
+      <div class="col-md-2">
+      <p style="padding-top: 2%; padding-left: 12%;">{{product.count}}</p>
+    </div>
+    <div class="col-md-2">
+      <p style="padding-top: 2%;">{{product.count * product.price}} đ</p>
+    </div>
+  </div>
+</div>
+
+<div class="container group-food-one all-white">
+  <div class="row" style="margin-top: 1%;">
+    <mat-icon class="icon-delivery">local_shipping</mat-icon>
+    <p class="text-delivery">Delivery</p>
+  </div>
+  <div class="row row-food-one">
+    <div class="col-md-2" style="font-size: 1rem;">
+      Panda Express
+    </div>
+    <div class="col-md-4" style="font-size: 1rem;">
+      From {{storeNearest && storeNearest.name}} ({{distance.toFixed(1)}} km)
+    </div>
+    <div class="col-md-4" style="font-size: 1rem;">
+      Orders will be delivered to you soon
+    </div>
+    <div class="col-md-4" style="font-size: 1rem;" *ngIf="this.distance.toFixed(1) > 15">
+      Delivery distance must be less than 15km
+    </div>
+    <div class="col-md-2" style="font-size: 1rem;">
+      <p>15.000 đ</p>
+    </div>
+  </div>
+</div>
+
+<div class="container group-food-one all-white" *ngIf="chooseVoucher">
+  <div class="row" style="margin-top: 1%;" *ngIf="chooseVoucher.eventTypeCode === 'FREESHIP'">
+    <div class="col-md-4">
+      <mat-icon class="icon-voucher">folder_special</mat-icon>
+      <p class="text-voucher">Vouchers</p>
+    </div>
+    <div class="col-md-6" style="margin-top: 1%;">
+      <p style="margin-left: 15%; font-size: 1rem;">Ship: {{chooseVoucher.title}}</p>
+    </div>
+    <div class="col-md-2" style="margin-top: 1%;">
+      <mat-icon style="margin-left: 15%; cursor: pointer;" (click)="openModalChooseVoucher()">edit</mat-icon>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 1%;" *ngIf="chooseVoucher.eventTypeCode === 'DISCOUNT'">
+    <div class="col-md-4">
+      <mat-icon class="icon-voucher">folder_special</mat-icon>
+      <p class="text-voucher">Vouchers</p>
+    </div>
+    <div class="col-md-6" style="margin-top: 1%">
+      <p style="margin-left: 15%; font-size: 1rem;">Discount: {{chooseVoucher.title}}</p>
+    </div>
+    <div class="col-md-2" style="margin-top: 1%;">
+      <mat-icon  style="margin-left: 15%; cursor: pointer;" (click)="openModalChooseVoucher()">edit</mat-icon >
+    </div>
+  </div>
+</div>
+
+<div class="container group-food-one all-white" *ngIf="!chooseVoucher">
+  <div class="row" style="margin-top: 1%;">
+    <div class="col-md-10">
+      <mat-icon class="icon-voucher-1">folder_special</mat-icon>
+      <p class="text-voucher-1">Vouchers</p>
+    </div>
+    <div class="col-md-2" style="margin-top: 1%;">
+      <mat-icon style="margin-left: 15%; cursor: pointer;" (click)="openModalChooseVoucher()">edit</mat-icon>
+    </div>
+  </div>
+</div>
+
+<div class="container group-food-one all-white" style="margin-bottom: -2%;">
+  <div class="row" style="margin-top: 1%; border-bottom: 1px solid;">
+    <div class="col-md-9">
+      <mat-icon class="icon-payment">monetization_on</mat-icon>
+      <p class="text-payment">Payment</p>
+    </div>
+    <div class="col-md-3">
+      <p style="font-size: 25px; margin-left: -5%;">Cash on delivery</p>
+    </div>
+  </div>
+  <div class="row row-food-one" style="margin-top: 1%;">
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-4">
+      <span style="float: left; margin-left: 14%; font-size: 17px;">
+        <p class="text-order-1">Total prodcut cost:</p>
+        <p class="text-order-3">Shipping fee:</p>
+        <p class="text-order-5">Total invoice:</p>
+      </span>
+      <span style="float: right; font-size: 17px;">
+        <p class="text-order-2">{{totalPriceProductLocalStorage}} VND</p>
+        <p class="text-order-4">{{priceShipping}} VND</p>
+        <p class="text-order-6">{{totalPriceCartLocalStorage}} VND</p>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="right-5">
+      <button class="button-login" (click)="order()" *ngIf="this.distance.toFixed(1) < 15">
+        <mat-spinner style="margin:0 auto;" [diameter]=30 *ngIf="(loadingOrder$ | async)?.orderEntity"></mat-spinner>
+        <span *ngIf="!(loadingOrder$ | async)?.orderEntity">ORDER NOW</span>
+      </button>
+      <div *ngIf="this.distance.toFixed(1) > 15">
+        <button class="button-login" (click)="order()" mat-flat-button disabled>
+          <mat-spinner style="margin:0 auto;" [diameter]=30 *ngIf="(loadingOrder$ | async)?.orderEntity"></mat-spinner>
+          <span *ngIf="!(loadingOrder$ | async)?.orderEntity">ORDER NOW</span>
+        </button>
+      </div>
+      <!-- <span style="cursor: pointer;" class="right-5-1" (click)="order()">ORDER NOW</span> -->
+    </div>
+  </div>
+</div>
+
+  <div>
+    <app-footer></app-footer>
+  </div>
+</div>

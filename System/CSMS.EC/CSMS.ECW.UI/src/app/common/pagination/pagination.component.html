@@ -1,0 +1,54 @@
+<div class="row" *ngIf="totalCount > 0">
+  <div class="card-footer py-4 pr-0 pl-2 w-100" style="margin-bottom: -3%;; background-color: white;">
+
+    <div class="col-sm-12 col-md-7 mb-2 pl-0 d-inline-block float-right w-auto">
+      <ul class="pagination justify-content-end mb-0">
+
+        <li class="page-item bg-white" [class.disabled]="currentPageIndex <= 1">
+          <a class="page-link" (click)="onPageChange(currentPageIndex - 1)" tabindex="-1">
+            <!-- <i class="nc-icon nc-minimal-left"></i> -->
+            <i class="nc-icon fas fa-angle-left"></i>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+
+        <ng-template ngFor let-number [ngForOf]="[].constructor(getNumOfPages())" let-i="index">
+          <li *ngIf="showShortPagination(i)" class="page-item">
+            <a class="page-link">...</a>
+          </li>
+          <li *ngIf="showNumberPagination(i)" class="page-item" [class.active]="i + 1 === currentPageIndex">
+            <a class="page-link cursor-pointer" (click)="onPageChange(i + 1)">{{i + 1}}</a>
+          </li>
+        </ng-template>
+
+        <li class="page-item bg-white" [class.disabled]="currentPageIndex >= getNumOfPages()">
+          <a class="page-link" (click)="onPageChange(currentPageIndex + 1)">
+            <!-- <i class="nc-icon nc-minimal-right"></i> -->
+            <i class="nc-icon fas fa-angle-right"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <div *ngIf="totalCount < 4" class="col-sm-12 col-md-5 pl-0 pr-3 d-inline-block float-right w-auto" style="position: absolute; margin-left: 56%; margin-top: -2px; width: 20%; padding-right: 0rem !important;">
+      <span class="mt-2 mr-2">items per page: </span>
+
+      <select class="custom-select w-auto" (change)="updatePageSize()" [(ngModel)]="pageSize" style="width: 25%;">
+        <option *ngFor="let item of listPageSize" [ngValue]="item">{{item}}</option>
+      </select>
+
+      <span class="ml-2" style="margin-left: 6% !important;">{{getCurrentShowing() + ' of ' + totalCount}} </span>
+    </div>
+    <div *ngIf="totalCount > 4" class="col-sm-12 col-md-5 pl-0 pr-3 d-inline-block float-right w-auto" style="position: absolute; margin-left: 53%; margin-top: -3px; width: 20%; padding-right: 0rem !important;">
+      <span class="mt-2 mr-2">items per page: </span>
+
+      <select class="custom-select w-auto" (change)="updatePageSize()" [(ngModel)]="pageSize" style="width: 25%;">
+        <option *ngFor="let item of listPageSize" [ngValue]="item">{{item}}</option>
+      </select>
+
+      <span class="ml-2" style="margin-left: 6% !important;">{{getCurrentShowing() + ' of ' + totalCount}} </span>
+    </div>
+
+  </div>
+</div>

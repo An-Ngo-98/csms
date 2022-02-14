@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <form name="writeReviewForm" [formGroup]="writeReviewForm" style="width: 100%;">
+      <p class="login-title">Please select your satisfaction level *</p>
+      <div class="input-1">
+        <ngb-rating [(rate)]="currentRate" formControlName="score" [max]=5 style="outline: none; color: rgb(255, 193, 32);"></ngb-rating>
+      </div>
+      <mat-form-field class="input-3" appearance="outline" style="margin-bottom: -1%;">
+        <mat-label>Title *</mat-label>
+        <input formControlName="title" matInput>
+        <mat-error *ngIf="writeReviewFormErrors.title.required">
+          Title is required
+      </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="input-2" style="margin-bottom: -1%;">
+        <mat-label>Comment *</mat-label>
+        <textarea rows="4" maxlength="140" formControlName="comment" matInput
+          placeholder="Share your comment with this product .... "></textarea>
+          <mat-error *ngIf="writeReviewFormErrors.comment.required">
+            Comment is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="row">
+    <div class="div-button-login">
+      <button class="button-login-1" (click)="close()" mat-flat-button>Cancel</button>
+      <div style="width: 40%; margin-top: -3.5em; margin-left: 48%;">
+        <button class="button-login-2" (click)="saveReview()" mat-flat-button [disabled]="!writeReviewForm.dirty || writeReviewForm.invalid">
+          <mat-spinner style="margin:0 auto;" [diameter]=30 *ngIf="(loadingReview$ | async)?.saveEntity"></mat-spinner>
+          <span *ngIf="!(loadingReview$ | async)?.saveEntity">Send</span>
+        </button>
+      </div>
+      <!-- <button class="button-login-2" (click)="saveReview()">
+        <mat-spinner style="margin:0 auto;" [diameter]=30 *ngIf="!(loadingReview$ | async)?.saveEntity"></mat-spinner>
+        <span *ngIf="!(loadingReview$ | async)?.saveEntity">Send</span>
+      </button> -->
+    </div>
+  </div>
+</div>

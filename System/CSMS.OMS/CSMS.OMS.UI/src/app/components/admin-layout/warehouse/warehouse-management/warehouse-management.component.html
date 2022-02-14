@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="row w-100 pl-2">
+      <div class="col-12 text-right pr-0">
+        <button class="btn btn-primary btn-sm mt-0" (click)="onImport()"> Import </button>
+        <button class="btn btn-primary btn-sm mt-0" (click)="onExport()"> Export </button>
+      </div>
+    </div>
+
+    <app-loading-spinner *ngIf="!listMaterial"></app-loading-spinner>
+    <div *ngIf="listMaterial?.length === 0" class="text-center">Cannot find any warehouse...</div>
+
+    <div *ngIf="listMaterial?.length > 0" class="fixed-wrapper">
+      <div class="row pt-3">
+        <div *ngFor="let mat of listMaterial; let i = index;" class="col-sm-4 col-md-3 pb-3">
+          <div class="product-box">
+            <div class="card-body row pt-0">
+              <div class="col-10">
+                <h5 class="card-title mt-2">{{mat.materialName}} </h5>
+              </div>
+              <div class="col-2 pl-0 text-right pt-2">
+                <i class="fa fa-history text-muted cursor-pointer fa-2x" ngbTooltip="History"
+                  (click)="onViewHistories(mat.materialId)"></i>
+              </div>
+              <div class="col-12 card-text">
+                <h5 class="text-primary">{{mat.quantityExists + ' ' + mat.unit}} </h5>
+                <small>From: {{getPartner(mat.defaultPartnerId, mat.partners)?.partnerName}}</small> <br>
+                <small>Price: {{formatCurrency(getPartner(mat.defaultPartnerId, mat.partners)?.materialPrice)}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="loading && listMaterial" id="loading">
+        <img id="loading-image" src="assets/img/loading/loading.gif" alt="Loading..." />
+      </div>
+    </div>
+
+    <app-pagination *ngIf="listMaterial" [totalCount]="listMaterial?.totalCount" [currentPageIndex]="page"
+      [pageSize]="pageSize" [savePageSize]="false" (onPageChangeEvent)="getlistMaterial($event, pageSize)"
+      (onPageSizeChangeEvent)="getlistMaterial(1, $event)">
+    </app-pagination>
+  </div>
+</div>

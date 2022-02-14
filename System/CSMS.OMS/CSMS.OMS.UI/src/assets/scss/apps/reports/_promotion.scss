@@ -1,0 +1,23 @@
+$width-fixed-col-1: 200px;
+
+$margin-left-col-2: 200px;
+$width-fixed-col-2: 160px;
+
+$total-width-fixed-columns: 360px;
+
+.promotion-report {
+  .fixed-scroller {
+    margin-left: $total-width-fixed-columns;
+  }
+
+  .fixed-table {
+    .fixed-sticky-col.col-title {
+      width: $width-fixed-col-1;
+    }
+
+    .fixed-sticky-col.col-platform {
+      margin-left: $margin-left-col-2;
+      width: $width-fixed-col-2;
+    }
+  }
+}

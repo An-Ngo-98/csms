@@ -1,0 +1,33 @@
+<div class="modal-dialog modal-sm">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="font-style-bold">Export invoices</span>
+      <i class="fa fa-close float-right close icon-10 cursor-pointer" data-dismiss="modal" (click)="close()"></i>
+    </div>
+    <div class="modal-body">
+      <section>
+        <div class="row">
+          <div class="col-10 mb-2">
+            <app-radio [checked]="selectedTypeToExport === ExportInvoiceType.SelectedInvoices"
+              [disabled]="isWaiting || selectedInvoiceIds.length === 0" [value]="ExportInvoiceType.SelectedInvoices"
+              [text]="selectedInvoiceIds.length + ' selected invoices'" (callback)="selectedTypeToExport = $event">
+            </app-radio>
+          </div>
+          <div class="col-10 mb-2">
+            <app-radio [checked]="selectedTypeToExport === ExportInvoiceType.SearchResult" [disabled]="isWaiting"
+              [value]="ExportInvoiceType.SearchResult" [text]="'Search result'"
+              (callback)="selectedTypeToExport = $event">
+            </app-radio>
+          </div>
+          <div class="text-center w-100">
+            <button [disabled]="isWaiting" class="btn btn-primary float-right mr-2 mb-0" (click)="onExport()">
+              <span *ngIf="!isWaiting">Export</span>
+              <app-loading-spinner *ngIf="isWaiting" [color]="SpinnerColor.GrayLight" [type]="SpinnerType.GrowSmall">
+              </app-loading-spinner>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
